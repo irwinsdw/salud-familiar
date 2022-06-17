@@ -93,7 +93,7 @@ export class EmpleadoDialogComponent implements OnInit {
       console.log(result)
       const dialogRef = this.dialog.open(FamiliaDialogComponent, {
         data: {empleado: formEmpleado } 
-
+//probando al modificar en github
         
       });
       alert("empleado agregado  con exito");
