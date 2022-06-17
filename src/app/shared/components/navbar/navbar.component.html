@@ -1,0 +1,43 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="drawer.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>people</mat-icon>
+    </button>
+    <span>SISFAM</span>
+
+  </mat-toolbar>
+
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer opened #drawer class="example-sidenav" mode="side">
+      
+      <mat-list>
+        <div class="center-items">
+          <div mat-card-avatar class="example-header-image"></div>
+          <strong>Irwin Jaramillo</strong>
+          <small>Administrador</small>
+        </div>
+        
+        <div class="icons">
+          <mat-icon style="color: #ffcc66;">account_box</mat-icon>
+          <mat-icon style="color: #5faf76;">power_settings_new</mat-icon>
+          <mat-icon style="color: #00bcd4;">bar_chart</mat-icon>
+          <mat-icon style="color: #cc0000;">notifications_active</mat-icon>
+        </div>
+        <mat-divider></mat-divider>
+        <div *ngFor="let item of mainMenu.defaultOptions">
+          <div class="sidebar-list">
+            <mat-icon>{{item.icon}}</mat-icon>
+            <mat-list-item >{{item.name}}</mat-list-item>
+          </div>
+          
+          <mat-divider></mat-divider>
+        </div>
+
+      </mat-list>
+
+    </mat-drawer>
+  
+  
+  </mat-drawer-container>

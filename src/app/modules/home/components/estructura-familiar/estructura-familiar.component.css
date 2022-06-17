@@ -1,0 +1,35 @@
+.container {
+    padding: 2rem 8rem;
+}
+
+.flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+.flex-between {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mat-list-item {
+    display: flex;
+    align-items: center;
+    color: rgb(106 104 104);
+}
+
+table {
+    width: 100%;
+}
+
+.mat-column-Acciones {
+    width: 19%;
+}
+
+
+.text-center {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}

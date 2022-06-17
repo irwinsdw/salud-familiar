@@ -1,0 +1,97 @@
+<mat-card class="card" >
+  <div >
+      <mat-toolbar color="primary">
+          <span>Crear - modulo Historia familiar n°3</span>
+      </mat-toolbar>
+  </div>
+  <mat-card-content style="padding: 0 10px;">
+      <form [formGroup]="formHistoriaFamiliar">
+          <mat-form-field appearance="legacy">
+              <mat-label>Familia</mat-label>
+              <input matInput formControlName="familia">
+              <mat-icon matSuffix color="accent">wc</mat-icon>
+          </mat-form-field>
+
+          <div class="input-2-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Nro. Historia</mat-label>
+                <input matInput #input formControlName="numeroHistoria">
+              </mat-form-field>
+            
+              <mat-form-field appearance="legacy">
+                <mat-label>Sub-sector</mat-label>
+                <input matInput #input formControlName="subSector">
+              </mat-form-field>
+            </div>
+
+
+
+            <h4 style="text-align: center;">Condición encuesta</h4>
+
+            <mat-radio-group aria-label="Select an option" formControlName="condicionEncuesta">
+              <mat-radio-button value="casa encuestada" (click)="condicionEncuesta(true)">Casa encuestada</mat-radio-button>
+              <mat-radio-button value="casa cerrada" (click)="condicionEncuesta(false)">Casa cerrada</mat-radio-button>
+              <mat-radio-button value="casa renuente" (click)="condicionEncuesta(false)">Casa renuente</mat-radio-button>
+              <mat-radio-button value="casa abandonada" (click)="condicionEncuesta(false)">Casa abandonada</mat-radio-button>
+              <mat-radio-button value="lote vacío" (click)="condicionEncuesta(false)">Lote vacío</mat-radio-button>
+            </mat-radio-group>
+
+            <div style="margin-bottom: 20px;"></div>
+
+            <div class="input-2-column"  style="margin-top: 12px;" *ngIf="casaEncuestada">
+              <mat-form-field appearance="legacy">
+                <mat-label>Observación</mat-label>
+                <input matInput #input formControlName="observacion">
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                  <mat-label>Fecha de Apertura</mat-label>
+                  <input matInput #input formControlName="fechaApertura">
+                  <mat-icon matSuffix >event</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="input-2-column" *ngIf="casaEncuestada">
+              <mat-form-field appearance="legacy">
+                <mat-label>Nro. visita presencial</mat-label>
+                <mat-select formControlName="numeroVisitaPresencial">
+                  <mat-option *ngFor="let numeroVisita of numerosDeVisitasPresencial" [value]="numeroVisita">
+                    {{numeroVisita}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>Nro. visita remota</mat-label>
+                <mat-select formControlName="numeroVisitaRemota">
+                  <mat-option *ngFor="let numeroVisita of numerosDeVisitasPresencial" [value]="numeroVisita">
+                    {{numeroVisita}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+
+          <div class="flex-center">
+              <button mat-stroked-button color="accent"  mat-dialog-close>
+                  <mat-icon >west</mat-icon>
+                  Cancelar
+              </button>
+              <button mat-stroked-button *ngIf="!data.familia"
+              color="primary" style="margin-left: 12px;" 
+              [disabled]="formHistoriaFamiliar.invalid" (click)="registrar()"
+              [mat-dialog-close]="formHistoriaFamiliar.value">
+                  <mat-icon >save</mat-icon>
+                  Guardar
+              </button>
+              <button mat-stroked-button *ngIf="data.familia"
+              color="primary" style="margin-left: 12px;" 
+              [disabled]="formHistoriaFamiliar.invalid" (click)="actualizar()"
+              [mat-dialog-close]="formHistoriaFamiliar.value">
+                  <mat-icon >save</mat-icon>
+                  Actualizar
+              </button>
+          </div>
+          
+      </form>
+
+      
+  </mat-card-content>
+</mat-card>

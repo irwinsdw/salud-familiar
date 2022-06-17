@@ -1,0 +1,102 @@
+
+<div class="container">
+
+  <div class="lista">
+    <!-- <mat-form-field appearance="legacy" style="width: 50%; font-size: 15px;">
+      <mat-label>Buscar establecimiento</mat-label>
+      <input matInput placeholder="Ingrese el establecimiento a buscar">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field> -->
+
+
+                  <!-- <h2>Lista de establecimientos</h2> -->
+                  <div class="flex-between">
+                      <mat-form-field appearance="standard" style="width: 50%; font-size: 15px; padding-top: 0;">
+                        <mat-label>Buscar empleado</mat-label>
+                        <input matInput [(ngModel)]="familiaBuscar" placeholder="Ex. Mia" #input>
+                        <mat-icon matSuffix color="primary"(click)="buscarFamilia()">search</mat-icon>
+                      </mat-form-field>
+                        <div class="flex-align-center">
+                            <button mat-mini-fab aria-label (click)="openDialogCrear()">
+                              <mat-icon>add</mat-icon>
+                            </button>
+                          </div>
+                    </div>
+
+  
+
+      
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" >
+  
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+        
+                
+                <ng-container matColumnDef="numero_historia">
+                  <th mat-header-cell *matHeaderCellDef> numero_historia </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="mat-list-item">
+                        <mat-list-item>{{element.numeroHistoria}}</mat-list-item>
+                    </div>
+                  </td>
+                </ng-container>
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="nombre">
+                      <th mat-header-cell *matHeaderCellDef> familia </th>
+                      <td mat-cell *matCellDef="let element">
+                        <div class="mat-list-item">
+                            <mat-list-item>{{element.nombre}}</mat-list-item>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="telefono">
+                      <th mat-header-cell *matHeaderCellDef> telefono</th>
+                      <td mat-cell *matCellDef="let element">
+                        <div class="mat-list-item">
+                            <mat-icon style="margin-right: 7px;">location_city</mat-icon>
+                            <mat-list-item>{{element.telefono}}</mat-list-item>
+                        </div>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="empleado">
+                      <th mat-header-cell *matHeaderCellDef> empleado </th>
+                      <td mat-cell *matCellDef="let element">
+                        <div class="mat-list-item">
+                            <mat-list-item>{{element.titular.nombre}}</mat-list-item>
+                        </div>
+                      </td>
+                    </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="Acciones" >
+            <th mat-header-cell *matHeaderCellDef > Acciones </th>
+            <td mat-cell *matCellDef="let familia">
+              <button mat-button color="accent" style="padding: 0 3px;" (click)="openDialogActualizar(familia)">
+                  <mat-icon>mode_edit</mat-icon>
+              </button>
+              <button mat-button color="accent" style="padding: 0 3px;" (click)="eliminarEmpleado(familia)">
+                  <mat-icon >delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator *ngIf="data" 
+        [pageSizeOptions]="[1, 2, 6]"
+         [length]="data.totalPages"
+         (page)="pageEvent = $event; onPaginateChange($event)"
+        showFirstLastButtons 
+        aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div >
+
+
+  </div>
+
+</div>

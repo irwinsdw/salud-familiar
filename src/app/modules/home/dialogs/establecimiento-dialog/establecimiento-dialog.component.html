@@ -1,0 +1,68 @@
+<mat-card class="card">
+    <div >
+        <mat-toolbar color="primary">
+            <span>Crear</span>
+        </mat-toolbar>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="formEstablecimiento">
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>codigo</mat-label>
+                    <input matInput formControlName="codigoEstablecimiento">
+                </mat-form-field>
+            </div>
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>nombre</mat-label>
+                    <input matInput formControlName="nombreEstablecimiento">
+                </mat-form-field>
+            </div>
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>red</mat-label>
+                    <input matInput formControlName="red">
+                </mat-form-field>
+            </div>
+
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>microred</mat-label>
+                    <input matInput formControlName="microred">
+                </mat-form-field>
+            </div>
+
+            
+            <div class="input" style="margin-bottom: 10px;">
+                 <mat-radio-group aria-label="Select an option" formControlName="estado" >
+                        Estado: 
+                        <mat-radio-button value="1">Activo</mat-radio-button>
+                        <mat-radio-button value="0">Inactivo</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="flex-center">
+                <button mat-stroked-button color="accent"  mat-dialog-close>
+                    <mat-icon >west</mat-icon>
+                    Cancelar
+                </button>
+                <button mat-stroked-button *ngIf="!data.establecimiento"
+                color="primary" style="margin-left: 12px;" 
+                [disabled]="formEstablecimiento.invalid" (click)="registrar()"
+                [mat-dialog-close]="formEstablecimiento.value">
+                    <mat-icon >save</mat-icon>
+                    Guardar
+                </button>
+                <button mat-stroked-button *ngIf="data.establecimiento"
+                color="primary" style="margin-left: 12px;" 
+                [disabled]="formEstablecimiento.invalid" (click)="actualizar()"
+                [mat-dialog-close]="formEstablecimiento.value">
+                    <mat-icon >save</mat-icon>
+                    Actualizar
+                </button>
+            </div>
+            
+        </form>
+
+        
+    </mat-card-content>
+  </mat-card>

@@ -1,0 +1,124 @@
+<mat-card class="card">
+    <div >
+        <mat-toolbar color="primary">
+            <span>Crear estructura familiar - Modulo 4</span>
+        </mat-toolbar>
+    </div>
+    <mat-card-content style="padding: 0 10px; overflow: auto; height: 600px;">
+        <form [formGroup]="formIntegranteFamiliar">
+
+            <div class="input-2-column">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Apellido y nombres</mat-label>
+                  <input matInput #input formControlName="nombreApellidos">
+                </mat-form-field>
+              
+                <mat-form-field appearance="legacy">
+                  <mat-label>Parentesco</mat-label>
+                  <input matInput #input formControlName="parentesco">
+                </mat-form-field>
+              </div>
+
+              <div class="input-2-column">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Estado Civil</mat-label>
+                  <input matInput #input formControlName="estadoCivil">
+                </mat-form-field>
+              
+                <mat-form-field appearance="legacy">
+                    <mat-label>Seguro médico</mat-label>
+                    <mat-select formControlName="seguroMedico">
+                      <mat-option *ngFor="let seguro of seguros" [value]="seguro">
+                        {{seguro}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+
+              <div class="input-2-column">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Fecha de nacimiento</mat-label>
+                  <input matInput #input formControlName="fechaNacimiento">
+                  <mat-icon matSuffix >event</mat-icon>
+                </mat-form-field>
+              
+                <mat-form-field appearance="legacy">
+                  <mat-label>DNI</mat-label>
+                  <input matInput #input formControlName="dni">
+                </mat-form-field>
+              </div>
+
+              <mat-radio-group aria-label="Select an option" formControlName="sexo">
+                Sexo: 
+                <mat-radio-button value="masculino" style="margin-left: 10px;">Masculino</mat-radio-button>
+                <mat-radio-button value="femenino">Femenino</mat-radio-button>
+              </mat-radio-group>
+
+
+
+              <div class="input-2-column"  style="margin-top: 12px;">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Grado de instrucción</mat-label>
+                  <input matInput #input formControlName="gradoInstruccion">
+                </mat-form-field>
+                <mat-form-field appearance="legacy">
+                    <mat-label>Ocupación</mat-label>
+                    <input matInput #input formControlName="ocupacion">
+                    
+                  </mat-form-field>
+              </div>
+              <section class="example-section" >
+                <h4>Clasificación de riesgo</h4>
+                <div class="grid-container" >
+                  <mat-checkbox (change)="onCheckboxChange($event)" [value]="item.nombre" [checked]=item.estado *ngFor="let item of clasifiacionesRiesgosas">{{item.nombre}}</mat-checkbox>
+                </div>
+
+              </section>
+              <div class="input-2-column"  style="margin-top: 12px;">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Gestante</mat-label>
+                  <input matInput #input formControlName="gestante">
+                </mat-form-field>
+                <mat-form-field appearance="legacy">
+                    <mat-label>Idioma</mat-label>
+                    <input matInput #input formControlName="idioma">
+                  </mat-form-field>
+              </div>
+              <div class="input-2-column" >
+                <mat-form-field appearance="legacy">
+                  <mat-label>Religión</mat-label>
+                  <input matInput #input formControlName="religion">
+                </mat-form-field>
+                <mat-form-field appearance="legacy">
+                    <mat-label>Pertenencia Étnica</mat-label>
+                    <input matInput #input formControlName="pertenenciaEtnica">
+                  </mat-form-field>
+              </div>
+
+
+            <div class="flex-center">
+                <button mat-stroked-button color="accent"  mat-dialog-close>
+                    <mat-icon >west</mat-icon>
+                    Cancelar
+                </button>
+                <button mat-stroked-button *ngIf="!data.integranteFamiliar"
+                color="primary" style="margin-left: 12px;" 
+                [disabled]="formIntegranteFamiliar.invalid" (click)="registrar()"
+                [mat-dialog-close]="formIntegranteFamiliar.value">
+                    <mat-icon >save</mat-icon>
+                    Guardar
+                </button>
+                <button mat-stroked-button *ngIf="data.integranteFamiliar"
+                color="primary" style="margin-left: 12px;" 
+                [disabled]="formIntegranteFamiliar.invalid" (click)="actualizar()"
+                [mat-dialog-close]="formIntegranteFamiliar.value">
+                    <mat-icon >save</mat-icon>
+                    Actualizar
+                </button>
+            </div>
+            
+        </form>
+
+        
+    </mat-card-content>
+  </mat-card>

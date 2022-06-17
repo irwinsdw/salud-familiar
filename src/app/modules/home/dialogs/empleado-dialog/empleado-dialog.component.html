@@ -1,0 +1,87 @@
+<mat-card class="card">
+    <div >
+        <mat-toolbar color="primary"> <span>Crear Empleado - Modulo 1</span> 
+        </mat-toolbar>
+    </div>
+    <mat-card-content>
+        <form [formGroup]="formEmpleado">
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>dniusuario</mat-label>
+                    <mat-icon matSuffix color="primary"(click)="buscarempleado()">search</mat-icon>
+                   
+                    <input matInput formControlName="dni" >
+                </mat-form-field>
+            </div>
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>usuario</mat-label>
+                    <input matInput formControlName="nombre">
+                </mat-form-field>
+            </div>
+            
+
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>establecimiento</mat-label>
+                    <input matInput formControlName="establecimiento">
+                </mat-form-field>
+            </div>
+
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>microred</mat-label>
+                    <input matInput formControlName="microred">
+                </mat-form-field>
+            </div>
+
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>red_salud</mat-label>
+                    <input matInput formControlName="redsalud">
+                </mat-form-field>
+            </div>
+
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>distrito</mat-label>
+                    <input matInput formControlName="distrito">
+                </mat-form-field>
+            </div>
+
+
+            <div class="input">
+                <mat-form-field appearance="legacy">
+                    <mat-label>provincia</mat-label>
+                    <input matInput formControlName="provincia">
+                </mat-form-field>
+            </div>
+            
+            <div class="flex-center">
+                <button mat-stroked-button color="accent"  mat-dialog-close>
+                    <mat-icon >west</mat-icon>
+                    Cancelar
+                </button>
+                <button mat-stroked-button *ngIf="!data.empleado"
+                color="primary" style="margin-left: 12px;" 
+                [disabled]="formEmpleado.invalid" (click)="registrar(formEmpleado.value)"
+                [mat-dialog-close]="formEmpleado.value">
+                    <mat-icon >save</mat-icon>
+                    Guardar
+                </button>
+                <button mat-stroked-button *ngIf="data.empleado"
+                color="primary" style="margin-left: 12px;" 
+                [disabled]="formEmpleado.invalid" (click)="registrar(formEmpleado.value)"
+                [mat-dialog-close]="formEmpleado.value">
+                    <mat-icon >save</mat-icon>
+                    Actualizar
+                </button>
+            </div>
+            
+        </form>
+
+        
+    </mat-card-content>
+  </mat-card>
+
+
