@@ -6,9 +6,9 @@ export class Familia {
     
     nombre!: string;
     telefono!: string;
-    numeroHistoria!:string;
+    numero_historia!:string;
     titular!:empleado;
-    zona!: string;
+    asentamiento_humano!: string;
     nombrezona!: string;
     tipovia!: string;
     nomtipovia!: string;

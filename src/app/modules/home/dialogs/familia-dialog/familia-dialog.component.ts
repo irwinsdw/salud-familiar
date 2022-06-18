@@ -19,55 +19,32 @@ export class FamiliaDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.data.familia){
-      let familia: Familia = this.data.empleado;
-     
+      let familia= this.data.familia;
+      
       this.formFamilia = new FormGroup({
+        numero_historia: new FormControl(familia.numeroHistoria, [ //numeroHistoria es de la parte private string
+          Validators.required
+        ]),
+      
         nombre: new FormControl(familia.nombre, [
           Validators.required
         ]),
-        telefono: new FormControl(familia.telefono,[
+        titular: new FormControl(familia.titular.nombre, [
           Validators.required
         ]),
-        zona: new FormControl(familia.zona,[
-          Validators.required
-        ]),
-        nombrezona: new FormControl(familia.nombrezona,[
-          Validators.required
-        ]),
-        tipovia: new FormControl(familia.tipovia,[
-          Validators.required
-        ]),
-        nomtipovia: new FormControl(familia.nomtipovia,[
-          Validators.required
-        ]),
-        referencia: new FormControl(familia.referencia,[
-          Validators.required
-        ])
       });
     }else {
       this.formFamilia = new FormGroup({
-        nombre: new FormControl('', [
+        numero_historia: new FormControl('', [
           Validators.required
         ]),
-        celular: new FormControl('',[
+        nombre: new FormControl('',[
           Validators.required
         ]),
-        zona: new FormControl('',[
+        titular: new FormControl('',[
           Validators.required
         ]),
-        nombrezona: new FormControl('',[
-          Validators.required
-        ]),
-        tipovia: new FormControl('',[
-          Validators.required
-        ]),
-        nomtipovia: new FormControl('',[
-          Validators.required
-        ]),
-        referencia: new FormControl('',[
-          Validators.required
-        ])
-      });
+    });
     }
   }
 
