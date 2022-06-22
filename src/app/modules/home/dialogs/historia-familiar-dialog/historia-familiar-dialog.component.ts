@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HistoriaFamiliar } from 'src/app/core/models/historia-familiar';
-import { IntegranteFamiliar } from 'src/app/core/models/integrante-familiar';
-import { EstructuraFamiliarComponent } from '../../components/estructura-familiar/estructura-familiar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Encuesta } from 'src/app/core/models/encuesta';
+import { Familia } from 'src/app/core/models/familia';
+import { Persona } from 'src/app/core/models/persona';
 import { HistoriaFamiliarComponent } from '../../components/historia-familiar/historia-familiar.component';
+import { EncuestaService } from '../../services/encuesta.service';
 import { EstructuraFamiliarDialogComponent } from '../estructura-familiar-dialog/estructura-familiar-dialog.component';
 
 @Component({
@@ -13,113 +15,136 @@ import { EstructuraFamiliarDialogComponent } from '../estructura-familiar-dialog
   styleUrls: ['./historia-familiar-dialog.component.css']
 })
 export class HistoriaFamiliarDialogComponent implements OnInit {
-  formHistoriaFamiliar: FormGroup = new FormGroup({});
+  formEncuesta: FormGroup = new FormGroup({});
 
   casaEncuestada: boolean = false;
+  radioButtonDeshabilitado: boolean = true;
+
+  familia: Familia = new Familia();
 
   numerosDeVisitasPresencial: string[] = ['1ra presencial','2da presencial','3ra presencial','4ta presencial','5ta presencial','6ta presencial'];
 
   constructor(public dialogRef: MatDialogRef<HistoriaFamiliarComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,  public dialog: MatDialog) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,  public dialog: MatDialog, private encuestaService:EncuestaService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
     
 
-    if(this.data.historiaFamiliar){
-      let historiaFamiliar: HistoriaFamiliar = this.data.historiaFamiliar;
+    if(this.data.familia){
+      this.familia = this.data.familia;
+      console.log(this.familia.id)
 
-
-      this.formHistoriaFamiliar = new FormGroup({
-        familia: new FormControl(historiaFamiliar.familia.nombre, [
-          Validators.required
-        ]),
-        numeroHistoria: new FormControl(historiaFamiliar.numeroHistoria,[
-          Validators.required
-        ]),
-        subSector: new FormControl(historiaFamiliar.subSector,[
-          Validators.required
-        ]),
-        condicionEncuesta: new FormControl(historiaFamiliar.condicionEncuesta,[
-          Validators.required
-        ]),
-        observacion: new FormControl(historiaFamiliar.observacion,[
-          
-        ]),
-        fechaApertura: new FormControl(historiaFamiliar.fechaApertura,[
-          
-        ]),
-        numeroVisitaPresencial: new FormControl(historiaFamiliar.numeroVisitaPresencial,[
-          
-        ]),
-        numeroVisitaRemota: new FormControl(historiaFamiliar.numeroVisitaRemota,[
-          
-        ])
-      });
-    }else {
-
-      let nombreFamilia: string = '';
-      if(this.data.nombreFamilia) {
-        nombreFamilia = this.data.nombreFamilia;
-      }
-
-      this.formHistoriaFamiliar = new FormGroup({
-        familia: new FormControl(nombreFamilia, [
-          Validators.required
-        ]),
-        numeroHistoria: new FormControl('',[
-          Validators.required
-        ]),
-        subSector: new FormControl('',[
+      this.formEncuesta = new FormGroup({
+        familia: new FormControl({value:this.familia.nombre, disabled: true}, [
           Validators.required
         ]),
         condicionEncuesta: new FormControl('',[
           Validators.required
         ]),
-        observacion: new FormControl('',[
-          
+        numeroVisita: new FormControl({value:'', disabled: true},[
+          Validators.required
         ]),
-        fechaApertura: new FormControl('',[
-          
+        formaVisita: new FormControl({value:'', disabled: true},[
+          Validators.required
         ]),
-        numeroVisitaPresencial: new FormControl('',[
-          
+        fechaVisita: new FormControl({value:'', disabled: true},[
+          Validators.required
         ]),
-        numeroVisitaRemota: new FormControl('',[
-          
+        observacion: new FormControl({value:'', disabled: true},[
+          Validators.required
         ])
+      });
+    }else {
+
+      let nombreFamilia: string = 'xd';
+      if(this.data.encuesta) {
+        nombreFamilia = this.data.encuesta.familia.nombre;
+      }
+
+      this.formEncuesta = new FormGroup({
+        familia: new FormControl({value:nombreFamilia, disabled: true}, [
+          Validators.required
+        ]),
+        condicionEncuesta: new FormControl('',[
+          Validators.required
+        ]),
+        numeroVisita: new FormControl({value:'', disabled: true},[
+          Validators.required
+        ]),
+        formaVisita: new FormControl({value:'', disabled: true},[
+          Validators.required
+        ]),
+        fechaVisita: new FormControl({value:'', disabled: true},[
+          Validators.required
+        ]),
+        observacion: new FormControl({value:'', disabled: true},[
+          Validators.required
+        ]),
       });
     }
   }
 
   
   registrar() {
-    console.log('service.crear() => Succesfull');
-    console.log('service.crear() => Succesfull');
-    const dialogRef = this.dialog.open(EstructuraFamiliarDialogComponent, {
-      data: {nombreFamilia: new IntegranteFamiliar()}
-    });
+    
+    let encuesta: Encuesta = new Encuesta();
+    
+    encuesta = this.formEncuesta.value;
+    let familiaNueva: Familia = new Familia();
+    familiaNueva = this.familia
+    encuesta.familia = familiaNueva
+    console.log('Esta es la que pasa', encuesta)
+    this.encuestaService.registrar(encuesta)
+        .subscribe(response => {
+          this.openSnackBar('Registro exitoso!')
+          this.dialogRef.close();
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
-      // if(this.familia){
-      //   this.familias.push(this.familia);
-      //   this.table.renderRows();
-      //   this.familia = undefined;
-      // }
+          if(!this.casaEncuestada){
+            return
+          }
+          const dialogRef = this.dialog.open(EstructuraFamiliarDialogComponent, {
+            data: {familia: response.data.familia}
+          });
+      
+          dialogRef.afterClosed().subscribe(result => {
+            console.log(result)
+      
+          });
+        }, err => {
+          this.openSnackBar('No se pudo registrar la encuesta, vuelva a intentarlo')
+        })
 
-    });
-  }
 
-  actualizar() {
-    console.log('service.actualizar() => Succesfull');
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  onChange() {
+    if(this.casaEncuestada) {
+      this.formEncuesta.controls['numeroVisita'].enable()
+      this.formEncuesta.controls['formaVisita'].enable()
+      this.formEncuesta.controls['fechaVisita'].enable()
+      this.formEncuesta.controls['observacion'].enable()
+    }else{
+      this.formEncuesta.controls['numeroVisita'].disable()
+      this.formEncuesta.controls['formaVisita'].disable()
+      this.formEncuesta.controls['fechaVisita'].disable()
+      this.formEncuesta.controls['observacion'].disable()
+    }
+  }
+
   condicionEncuesta(estado: boolean) {
     this.casaEncuestada = estado;
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end'
+    });
   }
 }

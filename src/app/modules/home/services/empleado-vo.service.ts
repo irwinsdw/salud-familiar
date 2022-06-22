@@ -29,6 +29,7 @@ export class EmpleadoVOService extends GenericoService{
     const url=`${this.url}/vo?PERSONASFAM=${empleado}&pagina=${pagina}&limite=${limite}`;
     return this.http.get<any>(url);
   }
+
   registrar(empleadoregistrar:empleado):Observable<empleado>{
     const url=`${this.url}`;
     return this.http.post<empleado>(url,empleadoregistrar);

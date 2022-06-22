@@ -5,12 +5,12 @@
         </mat-toolbar>
     </div>
     <mat-card-content style="padding: 0 10px; overflow: auto; height: 600px;">
-        <form [formGroup]="formIntegranteFamiliar">
+        <form [formGroup]="formPersona">
 
             <div class="input-2-column">
                 <mat-form-field appearance="legacy">
                   <mat-label>Apellido y nombres</mat-label>
-                  <input matInput #input formControlName="nombreApellidos">
+                  <input matInput #input formControlName="nombreCompleto">
                 </mat-form-field>
               
                 <mat-form-field appearance="legacy">
@@ -27,7 +27,7 @@
               
                 <mat-form-field appearance="legacy">
                     <mat-label>Seguro médico</mat-label>
-                    <mat-select formControlName="seguroMedico">
+                    <mat-select formControlName="seguro">
                       <mat-option *ngFor="let seguro of seguros" [value]="seguro">
                         {{seguro}}
                       </mat-option>
@@ -48,7 +48,7 @@
                 </mat-form-field>
               </div>
 
-              <mat-radio-group aria-label="Select an option" formControlName="sexo">
+              <mat-radio-group aria-label="Select an option" formControlName="genero">
                 Sexo: 
                 <mat-radio-button value="masculino" style="margin-left: 10px;">Masculino</mat-radio-button>
                 <mat-radio-button value="femenino">Femenino</mat-radio-button>
@@ -59,7 +59,7 @@
               <div class="input-2-column"  style="margin-top: 12px;">
                 <mat-form-field appearance="legacy">
                   <mat-label>Grado de instrucción</mat-label>
-                  <input matInput #input formControlName="gradoInstruccion">
+                  <input matInput #input formControlName="estudios">
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Ocupación</mat-label>
@@ -75,45 +75,44 @@
 
               </section>
               <div class="input-2-column"  style="margin-top: 12px;">
-                <mat-form-field appearance="legacy">
+                <!-- <mat-form-field appearance="legacy">
                   <mat-label>Gestante</mat-label>
                   <input matInput #input formControlName="gestante">
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-form-field appearance="legacy">
                     <mat-label>Idioma</mat-label>
                     <input matInput #input formControlName="idioma">
                   </mat-form-field>
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Religión</mat-label>
+                    <input matInput #input formControlName="religion">
+                  </mat-form-field>
               </div>
               <div class="input-2-column" >
-                <mat-form-field appearance="legacy">
-                  <mat-label>Religión</mat-label>
-                  <input matInput #input formControlName="religion">
-                </mat-form-field>
+
                 <mat-form-field appearance="legacy">
                     <mat-label>Pertenencia Étnica</mat-label>
                     <input matInput #input formControlName="pertenenciaEtnica">
                   </mat-form-field>
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Familia</mat-label>
+                    <input matInput #input [value]="empleadoControlForm.value" disabled="true">
+                  </mat-form-field>
+
               </div>
 
 
             <div class="flex-center">
-                <button mat-stroked-button color="accent"  mat-dialog-close>
+                <button mat-stroked-button color="accent"  mat-dialog-close (click)="onNoClick()">
                     <mat-icon >west</mat-icon>
                     Cancelar
                 </button>
-                <button mat-stroked-button *ngIf="!data.integranteFamiliar"
+                <button mat-stroked-button
                 color="primary" style="margin-left: 12px;" 
-                [disabled]="formIntegranteFamiliar.invalid" (click)="registrar()"
-                [mat-dialog-close]="formIntegranteFamiliar.value">
+                [disabled]="formPersona.invalid" (click)="registrar()"
+                >
                     <mat-icon >save</mat-icon>
                     Guardar
-                </button>
-                <button mat-stroked-button *ngIf="data.integranteFamiliar"
-                color="primary" style="margin-left: 12px;" 
-                [disabled]="formIntegranteFamiliar.invalid" (click)="actualizar()"
-                [mat-dialog-close]="formIntegranteFamiliar.value">
-                    <mat-icon >save</mat-icon>
-                    Actualizar
                 </button>
             </div>
             

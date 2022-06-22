@@ -28,8 +28,8 @@ export class FamiliaService extends GenericoService{
     const url=`${this.url}/by-nombre?familia=${familia}&pagina=${pagina}&limite=${limite}`;
     return this.http.get<any>(url);
   }
-  registrar(empleadoregistrar:Familia):Observable<Familia>{
+  registrar(empleadoregistrar:Familia):Observable<any>{
     const url=`${this.url}`;
-    return this.http.post<Familia>(url,empleadoregistrar);
+    return this.http.post<any>(url,empleadoregistrar);
   }
 }

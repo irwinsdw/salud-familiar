@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Familia } from 'src/app/core/models/familia';
-import { IntegranteFamiliar } from 'src/app/core/models/integrante-familiar';
+import { Persona } from 'src/app/core/models/persona';
 import { EstructuraFamiliarDialogComponent } from '../../dialogs/estructura-familiar-dialog/estructura-familiar-dialog.component';
+import { PersonaService } from '../../services/persona.service';
 
 @Component({
   selector: 'app-estructura-familiar',
@@ -12,23 +14,9 @@ import { EstructuraFamiliarDialogComponent } from '../../dialogs/estructura-fami
 })
 export class EstructuraFamiliarComponent implements OnInit {
 
-  integranteFamiliar!: IntegranteFamiliar | undefined;
+  persona!: Persona | undefined;
 
-  integranteFamiliar1: IntegranteFamiliar = {id:1,nombreApellidos:'Bengolea Sánchez Anderson',
-      parentesco: 'HIJO MENOR',estadoCivil: 'Soltero', seguroMedico:'ESSALUD', fechaNacimiento:'18-08-1994',dni:'70267159',sexo:'masculino',
-      gradoInstruccion:'SECUNDARIA COMPLETA', ocupacion:'Desarrollador',clasificacionRiesgo:['Otros'],
-      gestante:'NO',idioma:'Español',religion:'Católico',pertenenciaEtnica:'Hispano'};
-  integranteFamiliar2: IntegranteFamiliar = {id:2,nombreApellidos:'Bengolea Sánchez Madyson',
-      parentesco: 'HIJO MAYOR',estadoCivil: 'Casado', seguroMedico:'ESSALUD', fechaNacimiento:'09-09-2015',dni:'70233159',sexo:'femenino',
-      gradoInstruccion:'Inicial', ocupacion:'Estudiante',clasificacionRiesgo:['Otros'],
-      gestante:'NO',idioma:'Español',religion:'Católico',pertenenciaEtnica:'Hispano'};
-
-      integranteFamiliar3: IntegranteFamiliar = {id:3,nombreApellidos:'Arotinco Velasquez Hely',
-      parentesco: 'HIJO MAYOR',estadoCivil: 'Casado', seguroMedico:'ESSALUD', fechaNacimiento:'09-09-2015',dni:'72167159',sexo:'femenino',
-      gradoInstruccion:'UNIVERSIDAD', ocupacion:'Administrador',clasificacionRiesgo:['Otros'],
-      gestante:'NO',idioma:'Español',religion:'Católico',pertenenciaEtnica:'Hispano'};
-
-  integrantesDeFamilia: IntegranteFamiliar[] = [];
+  personas: Persona[] = [];
 
   familias: Familia[] = [
     //OBTENER LOS familiaS DEL BACKEND por el SERVICE 
@@ -37,11 +25,11 @@ export class EstructuraFamiliarComponent implements OnInit {
 
   displayedColumns: string[] = ['Nombres', 'DNI','Parentesco','GradoInstruccion' , 'Acciones'];
 
-  dataSource: MatTableDataSource<IntegranteFamiliar> = new MatTableDataSource(this.integrantesDeFamilia);
+  dataSource: MatTableDataSource<Persona> = new MatTableDataSource(this.personas);
 
   @ViewChild(MatTable) table!: MatTable<any>;
 
-  constructor(public dialog: MatDialog) { 
+  constructor(public dialog: MatDialog, private personService: PersonaService, private _snackBar: MatSnackBar) { 
 
     
   }
@@ -53,7 +41,7 @@ export class EstructuraFamiliarComponent implements OnInit {
     console.log(nombreFamilia);
     this.familias.forEach(f => {
       if(f.nombre === nombreFamilia) {
-        this.dataSource = new MatTableDataSource(f.integrantesFamiliar);
+        // this.dataSource = new MatTableDataSource(f.integrantesFamiliar);
         this.table.renderRows();
         console.log('FOUND')
         return
@@ -62,38 +50,67 @@ export class EstructuraFamiliarComponent implements OnInit {
     })
   }
 
+  buscarPersonaPorDni(dni: string) {
+    this.personas = []
+    this.personService.buscarPersonaPorDni(dni)
+        .subscribe(response => {
+          console.log(response)
+          this.personas.push(response.data)
+          this.dataSource = new MatTableDataSource(this.personas);
+          this.table.renderRows();
+          this.openSnackBar(response.message)
+
+        }, err => {
+          this.openSnackBar(err.error.message)
+        })
+  }
+
   openDialogCrear(): void {
     const dialogRef = this.dialog.open(EstructuraFamiliarDialogComponent, {
-      data: {integranteFamiliar: this.integranteFamiliar}
+      data: {persona: this.persona}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
-      this.integranteFamiliar = result;
-      if(this.integranteFamiliar){
-        this.familias[0].integrantesFamiliar.push(this.integranteFamiliar);
+      this.persona = result;
+      if(this.persona){
+        // this.familias[0].integrantesFamiliar.push(this.persona);
         this.table.renderRows();
-        this.integranteFamiliar = undefined;
+        this.persona = undefined;
       }
 
     });
   }
 
-  openDialogActualizar(integranteFamiliar: IntegranteFamiliar): void {
+  openDialogActualizar(persona: Persona): void {
     const dialogRef = this.dialog.open(EstructuraFamiliarDialogComponent, {
-      data: {integranteFamiliar: integranteFamiliar}
+      data: {persona: persona}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.integranteFamiliar = result;
+
+      if(!result){
+        return
+      }
+      this.personas = [];
+      this.personas.push(result)
+      this.dataSource = new MatTableDataSource(this.personas);
         this.table.renderRows();
-        this.integranteFamiliar = undefined;
+        this.persona = undefined;
       });
   }
 
-  eliminarIntegranteFamiliar(integranteFamiliar: IntegranteFamiliar): void {
-    this.familias[0].integrantesFamiliar = this.familias[0].integrantesFamiliar.filter(e => e.id !== integranteFamiliar.id);
-    this.dataSource = new MatTableDataSource(this.familias[0].integrantesFamiliar);
+  eliminarPersona(persona: Persona): void {
+    // this.familias[0].integrantesFamiliar = this.familias[0].integrantesFamiliar.filter(e => e.id !== persona.id);
+    // this.dataSource = new MatTableDataSource(this.familias[0].integrantesFamiliar);
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end'
+    });
   }
 
 }

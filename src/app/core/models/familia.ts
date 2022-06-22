@@ -1,17 +1,17 @@
 import { empleado } from "./empleado";
-import { IntegranteFamiliar } from "./integrante-familiar";
 
 export class Familia {
     id!: number;
     
     nombre!: string;
     telefono!: string;
-    numero_historia!:string;
+    numeroHistoria!:string;
     titular!:empleado;
-    asentamiento_humano!: string;
-    nombrezona!: string;
-    tipovia!: string;
-    nomtipovia!: string;
+    asentamientoHumano!: string;
+    direccion!: string;
+    lote!: string;
+    manzana!: string;
+    subSector!: string;
+    fechaCreacion!:string;
     referencia!: string;
-    integrantesFamiliar: IntegranteFamiliar[] = [];
 }

@@ -32,6 +32,9 @@ import { EmpleadoDialogComponent } from './dialogs/empleado-dialog/empleado-dial
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HistoriaFamiliarComponent } from './components/historia-familiar/historia-familiar.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
   
@@ -66,7 +69,9 @@ import { HistoriaFamiliarComponent } from './components/historia-familiar/histor
     ReactiveFormsModule,
     MatRadioModule,
     MatDialogModule,
-    FormsModule
+    FormsModule, 
+    MatAutocompleteModule,
+    MatSnackBarModule
   ] , 
   providers:[
     {

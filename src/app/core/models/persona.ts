@@ -1,17 +1,19 @@
-export class IntegranteFamiliar {
+import { Familia } from "./familia";
+
+export class Persona {
     id!: number;
-    nombreApellidos!: string;
+    nombreCompleto!: string;
     parentesco!: string;
     estadoCivil!: string;
-    seguroMedico!: string;
+    seguro!: string;
     fechaNacimiento!: string;
     dni!: string;
-    sexo!: string;
-    gradoInstruccion!: string;
+    genero!: string;
+    estudios!: string;
     ocupacion!: string;
-    clasificacionRiesgo: any[] = [];
-    gestante!: string;
+    clasificacionRiesgo!: string;
     idioma!: string;
     religion!: string;
     pertenenciaEtnica!: string;
+    familia!: Familia;
 }

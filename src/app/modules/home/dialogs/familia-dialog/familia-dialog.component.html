@@ -7,47 +7,103 @@
   <mat-card-content style="padding: 0 10px;">
       <form [formGroup]="formFamilia">
 
-          <div class="input-2-column">
+            <div class="input-2-column">
               <mat-form-field appearance="legacy">
                 <mat-label>nmro historia</mat-label>
-                <input matInput #input formControlName="numero_historia">
+                <input matInput #input formControlName="numeroHistoria">
               </mat-form-field>
             
+              <mat-form-field appearance="legacy">
+                <mat-label>nombre</mat-label>
+                <input matInput #input formControlName="nombre">
+              </mat-form-field>
               
             </div>
 
+            <div class="input-2-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Teléfono</mat-label>
+                <input matInput #input formControlName="telefono">
+              </mat-form-field>
+  
+              <mat-form-field appearance="legacy">
+                <mat-label>Asentamiento humano</mat-label>
+                <input matInput #input formControlName="asentamientoHumano">
+              </mat-form-field>
+            </div>
             
-            <mat-form-field appearance="legacy">
-              <mat-label>nombre</mat-label>
-              <input matInput #input formControlName="nombre">
-            </mat-form-field>
-            
+            <div class="input-2-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Dirección</mat-label>
+                <input matInput #input formControlName="direccion">
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>Lote</mat-label>
+                <input matInput #input formControlName="lote">
+              </mat-form-field>
+            </div>
+
+            <div class="input-2-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Manzana</mat-label>
+                <input matInput #input formControlName="manzana">
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>Sub Sector</mat-label>
+                <input matInput #input formControlName="subSector">
+              </mat-form-field>
+            </div>
+
+            <div class="input-2-column">
               
-          
-            <mat-form-field appearance="legacy">
-              <mat-label>titular</mat-label>
-              <input matInput #input formControlName="titular">
-            </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>Fecha de creción</mat-label>
+                <input matInput #input formControlName="fechaCreacion" placeholder="Ejem: 1994-08-18">
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>Referencia</mat-label>
+                <input matInput #input formControlName="referencia">
+              </mat-form-field>
+            </div>
+              <mat-form-field appearance="fill" *ngIf="empleadoInputDeshabilitado">
+                <mat-label>titular</mat-label>
+                <input matInput #input formControlName="titular" >
+              </mat-form-field>
+
+              <mat-form-field appearance="legacy" *ngIf="!empleadoInputDeshabilitado">
+                <mat-label>Empleado</mat-label>
+                <input type="text" matInput [formControl]="empleadoControl" [matAutocomplete]="auto3" placeholder="Ingrese el nombre para iniciar busqueda">
+                <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngFor="let empleado of empleadosFiltrados | async" [value]="empleado" [ngClass]="{'hide-autocomplete': !mostrarAutocomplete}">
+                    {{empleado.nombre}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            
+
+            
+
+
+
+
              
            
             
 
           <div class="flex-center">
-              <button mat-stroked-button color="accent"  mat-dialog-close>
+              <button mat-stroked-button color="accent"  mat-dialog-close (click)="onNoClick()">
                   <mat-icon >west</mat-icon>
                   Cancelar
               </button>
               <button mat-stroked-button *ngIf="!data.familia"
               color="primary" style="margin-left: 12px;" 
-              [disabled]="formFamilia.invalid" (click)="registrar()"
-              [mat-dialog-close]="formFamilia.value">
+              [disabled]="formFamilia.invalid" (click)="registrar()">
                   <mat-icon >save</mat-icon>
                   Guardar
               </button>
               <button mat-stroked-button *ngIf="data.familia"
               color="primary" style="margin-left: 12px;" 
-              [disabled]="formFamilia.invalid" (click)="actualizar()"
-              [mat-dialog-close]="formFamilia.value">
+              [disabled]="formFamilia.invalid" (click)="actualizar()">
                   <mat-icon >save</mat-icon>
                   Actualizar
               </button>

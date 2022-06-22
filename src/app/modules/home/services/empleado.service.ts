@@ -27,6 +27,11 @@ protected options = {
     return this.http.get<empleado[]>(this.url,this.options);
   }
 
+  listarEmpleados():Observable<empleado[]>{
+    
+    return this.http.get<empleado[]>(this.url+'/listaEmpleados',this.options);
+  }
+
   buscar(dniempleado:string):Observable<any>{
     const url=`${this.url}/by-empleado/${dniempleado}`;
     return this.http.get<any>(url,this.options);
@@ -35,9 +40,9 @@ protected options = {
     const url=`${this.url}/empleados?pagina=${pagina}&limite=${limite}`;
     return this.http.get<any>(url,this.options);
   }
-  registrar(empleado:empleado):Observable<empleado>{
+  registrar(empleado:empleado):Observable<any>{
     const url=`${this.url}`;
-    return this.http.post<empleado>(url,empleado,this.options);
+    return this.http.post<any>(url,empleado,this.options);
   }
   editar (empleado:empleado):Observable<empleado>{
     const url=`${this.url}`;

@@ -24,7 +24,7 @@ export class HomePageComponent implements OnInit {
       {
         name: 'Empleado',
         icon: 'location_city',
-        router: ['/','empleado-vo']
+        router: ['/','empleado']
       },
       {
         name: 'Establecimiento',

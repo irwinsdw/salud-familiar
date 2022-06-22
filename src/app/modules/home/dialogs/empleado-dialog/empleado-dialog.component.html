@@ -8,7 +8,6 @@
             <div class="input">
                 <mat-form-field appearance="legacy">
                     <mat-label>dniusuario</mat-label>
-                    <mat-icon matSuffix color="primary"(click)="buscarempleado()">search</mat-icon>
                    
                     <input matInput formControlName="dni" >
                 </mat-form-field>
@@ -19,62 +18,79 @@
                     <input matInput formControlName="nombre">
                 </mat-form-field>
             </div>
-            
 
             <div class="input">
                 <mat-form-field appearance="legacy">
-                    <mat-label>establecimiento</mat-label>
-                    <input matInput formControlName="establecimiento">
-                </mat-form-field>
+                    <mat-label>Red Salud</mat-label>
+                    <input type="text" matInput [formControl]="redesSaludControl" [matAutocomplete]="auto" >
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"  (optionSelected)='onChangeRedesSalud()' >
+                      <mat-option *ngFor="let redSalud of redesSaludFiltrados | async" [value]="redSalud"[ngClass]="{'hide-autocomplete': !mostrarAutocomplete}">
+                        {{redSalud.nombre}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
             </div>
 
             <div class="input">
                 <mat-form-field appearance="legacy">
-                    <mat-label>microred</mat-label>
-                    <input matInput formControlName="microred">
-                </mat-form-field>
+                    <mat-label>Microred</mat-label>
+                    <input type="text" matInput [formControl]="microRedControl" [matAutocomplete]="auto2">
+                    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)='onChangeMicroRedes()' >
+                      <mat-option *ngFor="let microRed of microRedesFiltrados | async" [value]="microRed" [ngClass]="{'hide-autocomplete': !mostrarAutocomplete}">
+                        {{microRed.nombre}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
             </div>
 
             <div class="input">
                 <mat-form-field appearance="legacy">
-                    <mat-label>red_salud</mat-label>
-                    <input matInput formControlName="redsalud">
-                </mat-form-field>
+                    <mat-label>Establecimiento</mat-label>
+                    <input type="text" matInput [formControl]="establecimientoControl" [matAutocomplete]="auto3">
+                    <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displayFn">
+                      <mat-option *ngFor="let establecimiento of establecimientosFiltrados | async" [value]="establecimiento" [ngClass]="{'hide-autocomplete': !mostrarAutocomplete}">
+                        {{establecimiento.nombre}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
             </div>
 
             <div class="input">
-                <mat-form-field appearance="legacy">
-                    <mat-label>distrito</mat-label>
-                    <input matInput formControlName="distrito">
+              <mat-form-field appearance="legacy">
+                  <mat-label>Provincia</mat-label>
+                  <input type="text" matInput [formControl]="provinciaControl" [matAutocomplete]="auto4" >
+                  <mat-autocomplete #auto4="matAutocomplete" [displayWith]="displayFn" (optionSelected)='onChangeProvincias()'>
+                    <mat-option *ngFor="let provincia of provinciasFiltradas | async" [value]="provincia" [ngClass]="{'hide-autocomplete': !mostrarAutocomplete}">
+                      {{provincia.nombre}}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
-            </div>
+          </div>
 
+          <div class="input">
+            <mat-form-field appearance="legacy">
+                <mat-label>Distrito</mat-label>
+                <input type="text" matInput [formControl]="distritoControl" [matAutocomplete]="auto5">
+                <mat-autocomplete #auto5="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngFor="let distrito of distritosFiltradas | async" [value]="distrito" [ngClass]="{'hide-autocomplete': !mostrarAutocomplete}">
+                    {{distrito.nombre}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+          </div>
 
-            <div class="input">
-                <mat-form-field appearance="legacy">
-                    <mat-label>provincia</mat-label>
-                    <input matInput formControlName="provincia">
-                </mat-form-field>
-            </div>
             
             <div class="flex-center">
-                <button mat-stroked-button color="accent"  mat-dialog-close>
+                <button mat-stroked-button color="accent"  mat-dialog-close (click)="onNoClick()">
                     <mat-icon >west</mat-icon>
                     Cancelar
                 </button>
-                <button mat-stroked-button *ngIf="!data.empleado"
+                <button mat-stroked-button 
                 color="primary" style="margin-left: 12px;" 
                 [disabled]="formEmpleado.invalid" (click)="registrar(formEmpleado.value)"
-                [mat-dialog-close]="formEmpleado.value">
+                >
                     <mat-icon >save</mat-icon>
                     Guardar
-                </button>
-                <button mat-stroked-button *ngIf="data.empleado"
-                color="primary" style="margin-left: 12px;" 
-                [disabled]="formEmpleado.invalid" (click)="registrar(formEmpleado.value)"
-                [mat-dialog-close]="formEmpleado.value">
-                    <mat-icon >save</mat-icon>
-                    Actualizar
                 </button>
             </div>
             

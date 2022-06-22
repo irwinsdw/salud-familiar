@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { distrito } from 'src/app/core/models/distrito';
 import { empleado } from 'src/app/core/models/empleado';
@@ -15,27 +16,21 @@ export class EmpleadoComponent implements OnInit {
 
   pageEvent!: PageEvent;
  
-  empleados!: empleado | undefined;
-  empleado : empleado[] = [];
+  empleado!: empleado | undefined;
+  empleados : empleado[] = [];
   distrito : distrito[] = [];
   empleadobuscar:string = '';
   data:any;
 
-
-  
-    //OBTENER LOS empleados DEL BACKEND por el SERVICE 
-    
-  
-
   displayedColumns: string[] = ['dni','nombre','establecimiento','microred','Acciones'];
 
-  dataSource: MatTableDataSource<empleado> = new MatTableDataSource(this.empleado);
+  dataSource: MatTableDataSource<empleado> = new MatTableDataSource(this.empleados);
 
   @ViewChild(MatTable) table!: MatTable<any>;
 
-  constructor(public dialog: MatDialog,private empleadoservice:EmpleadoService) { 
+  constructor(public dialog: MatDialog,private empleadoservice:EmpleadoService, private _snackBar: MatSnackBar) { 
     let nombreempleado: string[] = [];
-    this.empleado.forEach(e => nombreempleado.push(e.establecimiento.nombre));
+    this.empleados.forEach(e => nombreempleado.push(e.establecimiento.nombre));
     
   }
 
@@ -49,83 +44,77 @@ export class EmpleadoComponent implements OnInit {
 
   }
 
-  
-
-
-      
-
-     
-
   openDialogActualizar(empleado: empleado): void {
     const dialogRef = this.dialog.open(EmpleadoDialogComponent, {
       data: {empleado: empleado}
       
-
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      empleado = result;
+      if(result == undefined) {
+        return
+      }
+      let empleadosEncontrado : empleado[]= []
+      empleadosEncontrado.push(result)
+      this.dataSource = new MatTableDataSource(empleadosEncontrado);
       this.table.renderRows();
     });
   }
 
-
-
-
-
-
-  
   openDialogCrear(): void {
     const dialogRef = this.dialog.open(EmpleadoDialogComponent, {
-      data: {empleadol: this.empleados}
+      data: {empleadol: this.empleado}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.empleados = result;
-      if(this.empleados){
-        this.empleado.push(this.empleados);
+      this.empleado = result;
+      if(this.empleado){
+        this.empleados.push(this.empleado);
         this.table.renderRows();
-        this.empleados = undefined;
+        this.empleado = undefined;
       }
 
     });
   }
 
   eliminarEmpleado(empleado: empleado): void {
-    this.empleado = this.empleado.filter(e => e.id !== empleado.id);
-    this.dataSource = new MatTableDataSource(this.empleado);
+    this.empleados = this.empleados.filter(e => e.id !== empleado.id);
+    this.dataSource = new MatTableDataSource(this.empleados);
   }
 
-buscarempleado(){
-  this.empleadoservice.buscar(this.empleadobuscar).subscribe(response=>{
+  buscarempleado(){
+    this.empleadoservice.buscar(this.empleadobuscar).subscribe(response=>{
+      this.data = response;
+      console.log(this.data);
+      let empleadosEncontrado : empleado[]= []
+      empleadosEncontrado.push(this.data.data)
+      this.dataSource = new MatTableDataSource(empleadosEncontrado);
+      this.table.renderRows();
+      this.openSnackBar(response.message)
+    }, err => {
+      this.openSnackBar(err.error.message)
+    })
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end'
+    });
+  }
+
+  onPaginateChange(event: PageEvent) {
+    let page: number = event.pageIndex;
+    console.log(page)
+    let size = event.pageSize; 
+    this.empleadoservice.paginar(1,1).subscribe(response=>{
+      console.log(response)
     this.data = response;
-    console.log(this.data);
-    let empleado: empleado = this.data.content;
-    console.log(empleado)
-    let empleadosEncontrado : empleado[]= []
-    empleadosEncontrado.push(this.data.data)
-    console.log(empleadosEncontrado)
-    this.dataSource = new MatTableDataSource(empleadosEncontrado);
+    this.dataSource = new MatTableDataSource(this.data.content);
     this.table.renderRows();
-})
-
-}
-
-onPaginateChange(event: PageEvent) {
-  
-  console.log(event.pageSize)
-  let page: number = event.pageIndex;
-  console.log(page)
-  let size = event.pageSize; 
-  this.empleadoservice.paginar(1,1).subscribe(response=>{
-    console.log(response)
-  this.data = response;
-  this.dataSource = new MatTableDataSource(this.data.content);
-  this.table.renderRows();
 
     })
-    
-
   }
 
 

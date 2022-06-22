@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Familia } from 'src/app/core/models/familia';
 import { FamiliaDialogComponent } from '../../dialogs/familia-dialog/familia-dialog.component';
@@ -31,7 +32,7 @@ export class FamiliaComponent implements OnInit {
 
   @ViewChild(MatTable) table!: MatTable<any>;
 
-  constructor(public dialog: MatDialog,private familiaService:FamiliaService) { 
+  constructor(public dialog: MatDialog,private familiaService:FamiliaService, private _snackBar: MatSnackBar) { 
     let nombreempleado: string[] = [];
     this.familia.forEach(e => nombreempleado.push(e.nombre));
     
@@ -47,10 +48,6 @@ export class FamiliaComponent implements OnInit {
 
   }
 
-  
-
-
-      
 
       filtrarFamilia(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
@@ -69,7 +66,13 @@ export class FamiliaComponent implements OnInit {
         });
     
         dialogRef.afterClosed().subscribe(result => {
-          familia = result;
+          console.log(result)
+          if(result == undefined) {
+            return
+          }
+          
+          this.familia.push(result);
+          this.dataSource = new MatTableDataSource(this.familia);
           this.table.renderRows();
         });
       }
@@ -78,16 +81,13 @@ export class FamiliaComponent implements OnInit {
     const dialogRef = this.dialog.open(FamiliaDialogComponent, {
       data: {familiaDialog: this.familia}
     });
-
-
-
-
-
     
     dialogRef.afterClosed().subscribe(result => {
+      
       this.familias = result;
+      
       if(this.familias){
-        this.familia.push(this.familias);
+        this.dataSource = new MatTableDataSource(this.familia);
         this.table.renderRows();
         this.familias = undefined;
       }
@@ -102,11 +102,18 @@ export class FamiliaComponent implements OnInit {
 
 buscarFamilia(){
   this.familiaService.filtrar(this.familiaBuscar,1,2).subscribe(response=>{
+    if(response == null) {
+      this.openSnackBar("No se encontró familia");
+      return
+    }
     this.data = response;
     console.log(response);
     this.data = response;
     this.dataSource = new MatTableDataSource(this.data.content);
     this.table.renderRows();
+    this.openSnackBar("Búsqueda exitosa")
+}, err => {
+  this.openSnackBar("No se encontró familia")
 })
 
 }
@@ -125,7 +132,14 @@ onPaginateChange(event: PageEvent) {
 
     })
     
+  }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end'
+    });
   }
 
 

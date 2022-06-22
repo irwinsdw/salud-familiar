@@ -2,6 +2,7 @@
 .card {
     width: 700px;
     padding: 0 0 16px 0 ;
+    height: 100%;
 }
 
 .flex-center {
@@ -10,12 +11,11 @@
 }
 
 mat-card-content {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 mat-form-field {
     display: block;
-    padding: 5px;
     font-size: 14px;
 }
 
@@ -24,7 +24,7 @@ mat-form-field {
 }
 
 mat-toolbar {
-    height: 40px;
+    height: 35px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 }

@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IntegranteFamiliar } from 'src/app/core/models/integrante-familiar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Familia } from 'src/app/core/models/familia';
+import { Persona } from 'src/app/core/models/persona';
 import { EstructuraFamiliarComponent } from '../../components/estructura-familiar/estructura-familiar.component';
+import { PersonaService } from '../../services/persona.service';
 
 @Component({
   selector: 'app-estructura-familiar-dialog',
@@ -11,8 +14,9 @@ import { EstructuraFamiliarComponent } from '../../components/estructura-familia
 })
 export class EstructuraFamiliarDialogComponent implements OnInit {
 
-  formIntegranteFamiliar: FormGroup = new FormGroup({});
+  formPersona: FormGroup = new FormGroup({});
   clasificacionesSeleccionadas: FormArray =  new FormArray([]);
+  empleadoControlForm: FormControl = new FormControl();
 
   seguros: string[] = ['SIS', 'ESSALUD','PRIMA'];
   
@@ -24,71 +28,71 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
   ]
 
   constructor(public dialogRef: MatDialogRef<EstructuraFamiliarComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private personaService: PersonaService, private _snackBar: MatSnackBar) {
 
      }
 
   ngOnInit(): void {
-    if(this.data.integranteFamiliar){
-      let integranteFamiliar: IntegranteFamiliar = this.data.integranteFamiliar;
-      
-      if(integranteFamiliar.clasificacionRiesgo.length > 0){
-        integranteFamiliar.clasificacionRiesgo.forEach(c => {
-          this.clasifiacionesRiesgosas.forEach(c2 => {
-            if(c == c2.nombre) c2.estado = true; return
-          })
-        })
+    if(this.data.persona){
+      let persona: Persona = this.data.persona;
+      this.empleadoControlForm = new FormControl(this.data.persona.familia.nombre)
+      if(persona.clasificacionRiesgo.length > 0){
+        // persona.clasificacionRiesgo.forEach(c => {
+        //   this.clasifiacionesRiesgosas.forEach(c2 => {
+        //     if(c == c2.nombre) c2.estado = true; return
+        //   })
+        // })
       }
 
       
 
-      this.formIntegranteFamiliar = new FormGroup({
-        nombreApellidos: new FormControl(integranteFamiliar.nombreApellidos, [
+      this.formPersona = new FormGroup({
+        nombreCompleto: new FormControl(persona.nombreCompleto, [
           Validators.required
         ]),
-        parentesco: new FormControl(integranteFamiliar.parentesco,[
+        parentesco: new FormControl(persona.parentesco,[
           Validators.required
         ]),
-        estadoCivil: new FormControl(integranteFamiliar.estadoCivil,[
+        estadoCivil: new FormControl(persona.estadoCivil,[
           Validators.required
         ]),
-        seguroMedico: new FormControl(integranteFamiliar.seguroMedico,[
+        seguro: new FormControl(persona.seguro,[
           Validators.required
         ]),
-        fechaNacimiento: new FormControl(integranteFamiliar.fechaNacimiento,[
+        fechaNacimiento: new FormControl(persona.fechaNacimiento,[
           Validators.required
         ]),
-        dni: new FormControl(integranteFamiliar.dni,[
+        dni: new FormControl(persona.dni,[
           Validators.required
         ]),
-        sexo: new FormControl(integranteFamiliar.sexo,[
+        genero: new FormControl(persona.genero,[
           Validators.required
         ]),
-        gradoInstruccion: new FormControl(integranteFamiliar.gradoInstruccion,[
+        estudios: new FormControl(persona.estudios,[
           Validators.required
         ]),
-        ocupacion: new FormControl(integranteFamiliar.ocupacion,[
+        ocupacion: new FormControl(persona.ocupacion,[
           Validators.required
         ])
         ,
         clasificacionRiesgo: new FormArray([])
         ,
-        gestante: new FormControl(integranteFamiliar.gestante,[
+        idioma: new FormControl(persona.idioma,[
           Validators.required
         ]),
-        idioma: new FormControl(integranteFamiliar.idioma,[
+        religion: new FormControl(persona.religion,[
           Validators.required
         ]),
-        religion: new FormControl(integranteFamiliar.religion,[
+        pertenenciaEtnica: new FormControl(persona.pertenenciaEtnica,[
           Validators.required
         ]),
-        pertenenciaEtnica: new FormControl(integranteFamiliar.pertenenciaEtnica,[
-          Validators.required
-        ])
+        
       });
     }else {
-      this.formIntegranteFamiliar = new FormGroup({
-        nombreApellidos: new FormControl('', [
+      console.log(this.data)
+      this.empleadoControlForm = new FormControl(this.data.familia.nombre)
+      this.formPersona = new FormGroup({
+        nombreCompleto: new FormControl('', [
           Validators.required
         ]),
         parentesco: new FormControl('',[
@@ -97,7 +101,7 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
         estadoCivil: new FormControl('',[
           Validators.required
         ]),
-        seguroMedico: new FormControl('',[
+        seguro: new FormControl('',[
           Validators.required
         ]),
         fechaNacimiento: new FormControl('',[
@@ -106,10 +110,10 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
         dni: new FormControl('',[
           Validators.required
         ]),
-        sexo: new FormControl('',[
+        genero: new FormControl('',[
           Validators.required
         ]),
-        gradoInstruccion: new FormControl('',[
+        estudios: new FormControl('',[
           Validators.required
         ]),
         ocupacion: new FormControl('',[
@@ -117,9 +121,6 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
         ]),
         clasificacionRiesgo: new FormArray([])
         ,
-        gestante: new FormControl('',[
-          Validators.required
-        ]),
         idioma: new FormControl('',[
           Validators.required
         ]),
@@ -134,7 +135,7 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
   }
 
   onCheckboxChange(event: any) {
-    const clasificacionesSeleccionadas = (this.formIntegranteFamiliar.controls['clasificacionRiesgo'] as FormArray);
+    const clasificacionesSeleccionadas = (this.formPersona.controls['clasificacionRiesgo'] as FormArray);
     console.log(event)
     if (event.checked) {
       clasificacionesSeleccionadas.push(new FormControl(event.source.value));
@@ -149,15 +150,45 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
 
     
   registrar() {
-    console.log('service.crear() => Succesfull');
-  }
+    let persona: Persona = this.formPersona.value;
+    let familia: Familia = new Familia();
 
-  actualizar() {
-    console.log('service.actualizar() => Succesfull');
+    if(this.data.persona){
+      persona.id = this.data.persona.id;
+    }
+
+    if(this.data.familia) {
+      familia.id = this.data.familia.id
+    }else {
+      familia = this.data.persona.familia;
+    }
+
+    persona.familia = familia;
+    persona.clasificacionRiesgo = 'PRUEBA'
+    this.personaService.registrar(this.formPersona.value)
+        .subscribe(response => {
+          if(!this.data.familia) {
+            this.openSnackBar('Actualización exitosa')
+            this.dialogRef.close(response.data);
+          }
+          this.openSnackBar(response.message)
+          
+          this.formPersona.reset();
+        }, err => {
+          this.openSnackBar('Ocurrió un error, probar nuevamente')
+        })
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end'
+    });
   }
 
 }
