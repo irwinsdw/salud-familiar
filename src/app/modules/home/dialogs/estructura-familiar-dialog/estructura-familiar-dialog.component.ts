@@ -171,6 +171,35 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
             this.openSnackBar('Actualización exitosa')
             this.dialogRef.close(response.data);
           }
+          this.dialogRef.close(response.data);
+          this.openSnackBar(response.message)
+        }, err => {
+          this.openSnackBar('Ocurrió un error, probar nuevamente')
+        })
+  }
+
+  registrarMasPersonas() {
+    let persona: Persona = this.formPersona.value;
+    let familia: Familia = new Familia();
+
+    if(this.data.persona){
+      persona.id = this.data.persona.id;
+    }
+
+    if(this.data.familia) {
+      familia.id = this.data.familia.id
+    }else {
+      familia = this.data.persona.familia;
+    }
+
+    persona.familia = familia;
+    persona.clasificacionRiesgo = 'PRUEBA'
+    this.personaService.registrar(this.formPersona.value)
+        .subscribe(response => {
+          if(!this.data.familia) {
+            this.openSnackBar('Actualización exitosa')
+            this.dialogRef.close(response.data);
+          }
           this.openSnackBar(response.message)
           
           this.formPersona.reset();

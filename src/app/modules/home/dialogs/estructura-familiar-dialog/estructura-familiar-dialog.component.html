@@ -114,6 +114,14 @@
                     <mat-icon >save</mat-icon>
                     Guardar
                 </button>
+
+                <button mat-stroked-button
+                color="primary" style="margin-left: 12px;" 
+                [disabled]="formPersona.invalid" (click)="registrarMasPersonas()"
+                >
+                    <mat-icon >save</mat-icon>
+                    Agregar más personas
+                </button>
             </div>
             
         </form>

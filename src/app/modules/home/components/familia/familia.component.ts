@@ -70,7 +70,7 @@ export class FamiliaComponent implements OnInit {
           if(result == undefined) {
             return
           }
-          
+          this.familia = [];
           this.familia.push(result);
           this.dataSource = new MatTableDataSource(this.familia);
           this.table.renderRows();

@@ -157,7 +157,6 @@ export class FamiliaDialogComponent implements OnInit {
     }
     this.familiaserviceApi.registrar(familia)
         .subscribe(result => {
-      console.log(result)
       this.onNoClick()
       this.openSnackBar(result.message)
       const dialogRef = this.dialog.open(HistoriaFamiliarDialogComponent, {

@@ -24,57 +24,57 @@ export class HomePageComponent implements OnInit {
       {
         name: 'Empleado',
         icon: 'location_city',
-        router: ['/','empleado']
+        router: ['/home','empleado']
       },
       {
         name: 'Establecimiento',
         icon: 'location_city',
-        router: ['/','establecimientos']
+        router: ['/home','establecimientos']
       },
       {
         name: 'Ubigeo',
         icon: 'place',
-        router: ['/', 'history']
+        router: ['/home', 'history']
       },
       {
         name: 'Personal',
         icon: 'person',
-        router: ['/','empleado']
+        router: ['/home','empleado']
       },
       {
         name: 'Familia',
         icon: 'wc',
-        router: ['/','familias']
+        router: ['/home','familias']
       },
       {
         name: 'Historia familiar',
         icon: 'folder',
-        router: ['/', 'historia-familiar']
+        router: ['/home', 'historia-familiar']
       },
       {
         name: 'Estructura familiar',
         icon: 'person_add',
-        router: ['/', 'estructura-familiar']
+        router: ['/home', 'estructura-familiar']
       },
       {
         name: 'Riesgo familiar EV',
         icon: 'warning',
-        router: ['/', 'favorites']
+        router: ['/home', 'favorites']
       },
       {
         name: 'Familiar vivienda',
         icon: 'domain',
-        router: ['/', 'favorites']
+        router: ['/home', 'favorites']
       },
       {
         name: 'Encuesta famliar',
         icon: 'assignment_turned_in',
-        router: ['/', 'favorites']
+        router: ['/home', 'favorites']
       },
       {
         name: 'Reporte general',
         icon: 'pie_chart',
-        router: ['/', 'favorites']
+        router: ['/home', 'favorites']
       }
     ]
 

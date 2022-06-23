@@ -34,7 +34,7 @@ export class AuthPageComponent implements OnInit {
     this.loginService.login(login)
       .subscribe({
         next : (res: any) => {
-          this.router.navigate(['/empleado']);
+          this.router.navigate(['/home']);
           console.log('Login OK');
           console.log('response' + res);
 
