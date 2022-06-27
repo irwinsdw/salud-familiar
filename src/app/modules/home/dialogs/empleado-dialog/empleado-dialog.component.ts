@@ -267,9 +267,7 @@ export class EmpleadoDialogComponent implements OnInit {
 
       if(!this.data.empleado) {
         this.openSnackBar(result.message)
-        const dialogRef = this.dialog.open(FamiliaDialogComponent, {
-          data: {empleado: empleadonuevo } 
-        });
+        
         this.dialogRef.close();
       } else {
         this.openSnackBar('Empleado actualizado');

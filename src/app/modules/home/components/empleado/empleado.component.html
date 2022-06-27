@@ -36,7 +36,7 @@
     
                     <!-- Position Column -->
                     <ng-container matColumnDef="dni">
-                        <th mat-header-cell *matHeaderCellDef> dni </th>
+                        <th mat-header-cell *matHeaderCellDef> DNI </th>
                         <td mat-cell *matCellDef="let element">
                           <div class="mat-list-item">
                               <mat-list-item>{{element.dni}}</mat-list-item>
@@ -47,7 +47,7 @@
                       
                       <ng-container matColumnDef="nombre">
                         
-                        <th mat-header-cell *matHeaderCellDef> nombre</th>
+                        <th mat-header-cell *matHeaderCellDef> NOMBRE</th>
                         <td mat-cell *matCellDef="let element">
                           <div class="mat-list-item">
                             
@@ -60,7 +60,7 @@
                       </ng-container>
                     
                       <ng-container matColumnDef="establecimiento">
-                        <th mat-header-cell *matHeaderCellDef> establecimiento </th>
+                        <th mat-header-cell *matHeaderCellDef> ESTABLECIMIENTO </th>
                         <td mat-cell *matCellDef="let element">
                           <div class="mat-list-item">
                               <mat-list-item>{{element.establecimiento.nombre}}</mat-list-item>
@@ -69,7 +69,7 @@
                       </ng-container>
                      
                       <ng-container matColumnDef="microred">
-                        <th mat-header-cell *matHeaderCellDef> microred </th>
+                        <th mat-header-cell *matHeaderCellDef> MICRORED </th>
                         <td mat-cell *matCellDef="let element">
                           <div class="mat-list-item">
                               <mat-list-item>{{element.establecimiento.microred.nombre}}</mat-list-item>
@@ -78,7 +78,7 @@
                       </ng-container>
             <!-- Name Column -->
             <ng-container matColumnDef="Acciones" >
-              <th mat-header-cell *matHeaderCellDef > Acciones </th>
+              <th mat-header-cell *matHeaderCellDef > ACCIONES </th>
               <td mat-cell *matCellDef="let empleado">
                 <button mat-button color="accent" style="padding: 0 3px;" (click)="openDialogActualizar(empleado)">
                     <mat-icon>mode_edit</mat-icon>
