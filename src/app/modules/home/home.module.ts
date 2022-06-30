@@ -34,6 +34,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HistoriaFamiliarComponent } from './components/historia-familiar/historia-familiar.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MiembrosFamiliaComponent } from './dialogs/miembros-familia/miembros-familia.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { EncuestasFamiliaComponent } from './dialogs/encuestas-familia/encuestas-familia.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     EstructuraFamiliarDialogComponent,
     EmpleadoComponent,
     EmpleadoVOComponent,
-    EmpleadoDialogComponent
+    EmpleadoDialogComponent,
+    MiembrosFamiliaComponent,
+    EncuestasFamiliaComponent
               
   ],
   imports: [
@@ -71,7 +76,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDialogModule,
     FormsModule, 
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatGridListModule
   ] , 
   providers:[
     {

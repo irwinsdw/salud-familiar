@@ -8,7 +8,8 @@ export class Familia {
     numeroHistoria!:string;
     titular!:empleado;
     asentamientoHumano!: string;
-    direccion!: string;
+    ahurb_hu!: string;
+    avcalle_jiron_pasaje!: string;
     lote!: string;
     manzana!: string;
     subSector!: string;

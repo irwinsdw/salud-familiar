@@ -19,6 +19,19 @@ export class FamiliaService extends GenericoService{
     return this.http.get<Familia[]>(this.url);
     
   }
+
+  listarMiembrosFamiliaPorIdFamilia(idFamilia: number):Observable<any>{
+    
+    return this.http.get<any>(`${this.url}/${idFamilia}/miembros`);
+    
+  }
+
+  listarEncuestasPorIdFamilia(idFamilia: number):Observable<any>{
+    
+    return this.http.get<any>(`${this.url}/${idFamilia}/encuestas`);
+    
+  }
+
   //buscar(empleado:string):Observable<any>{
     //const url=`${this.url}?PERSONASFAM=${empleado}`;
     //return this.http.get<any>(url);

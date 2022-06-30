@@ -31,11 +31,31 @@
                 <input matInput #input formControlName="asentamientoHumano">
               </mat-form-field>
             </div>
+
+            <div class="input-2-column">
+              
+              <mat-form-field appearance="legacy">
+                <mat-label>AH/URB/HU</mat-label>
+                <mat-select formControlName="ahurb_hu">
+                  <mat-option *ngFor="let item of aHUrbHu" [value]="item">
+                    {{item}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>Av/Calle/Jiron/Pasaje</mat-label>
+                <mat-select formControlName="avcalle_jiron_pasaje">
+                  <mat-option *ngFor="let item of aVCalleJironPasaje" [value]="item">
+                    {{item}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
             
             <div class="input-2-column">
               <mat-form-field appearance="legacy">
-                <mat-label>Dirección</mat-label>
-                <input matInput #input formControlName="direccion">
+                <mat-label>Manzána</mat-label>
+                <input matInput #input formControlName="manzana">
               </mat-form-field>
               <mat-form-field appearance="legacy">
                 <mat-label>Lote</mat-label>
@@ -43,16 +63,10 @@
               </mat-form-field>
             </div>
 
-            <div class="input-2-column">
-              <mat-form-field appearance="legacy">
-                <mat-label>Manzana</mat-label>
-                <input matInput #input formControlName="manzana">
-              </mat-form-field>
               <mat-form-field appearance="legacy">
                 <mat-label>Sub Sector</mat-label>
                 <input matInput #input formControlName="subSector">
               </mat-form-field>
-            </div>
 
             <div class="input-2-column">
               

@@ -14,6 +14,7 @@
 
 
 
+
             <h4 style="text-align: center;">Condición encuesta</h4>
 
             <mat-radio-group aria-label="Select an option" formControlName="condicionEncuesta" (change)="onChange()">
@@ -25,12 +26,13 @@
             </mat-radio-group>
 
             <div style="margin-bottom: 20px;"></div>
+            <mat-form-field appearance="legacy" *ngIf="casaNoEncuestada">
+              <mat-label>Observación</mat-label>
+              <input matInput #input formControlName="observacion">
+            </mat-form-field>
 
             <div class="input-2-column"  style="margin-top: 12px;" *ngIf="casaEncuestada">
-              <mat-form-field appearance="legacy">
-                <mat-label>Observación</mat-label>
-                <input matInput #input formControlName="observacion">
-              </mat-form-field>
+
               <mat-form-field appearance="legacy">
                   <mat-label>fechaVisita</mat-label>
                   <input matInput #input formControlName="fechaVisita" placeholder="Ejm: 1994-04-04">
@@ -41,20 +43,10 @@
               <mat-form-field appearance="legacy">
                 <mat-label>formaVisita</mat-label>
                 <input matInput #input formControlName="formaVisita">
-                <!-- <mat-select formControlName="formaVisita">
-                  <mat-option *ngFor="let numeroVisita of numerosDeVisitasPresencial" [value]="numeroVisita">
-                    {{numeroVisita}}
-                  </mat-option>
-                </mat-select> -->
               </mat-form-field>
               <mat-form-field appearance="legacy">
                 <mat-label>numeroVisita</mat-label>
                 <input matInput #input formControlName="numeroVisita">
-                <!-- <mat-select formControlName="numeroVisita">
-                  <mat-option *ngFor="let numeroVisita of numerosDeVisitasPresencial" [value]="numeroVisita">
-                    {{numeroVisita}}
-                  </mat-option>
-                </mat-select> -->
               </mat-form-field>
             </div>
 
