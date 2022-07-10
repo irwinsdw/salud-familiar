@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Familia } from 'src/app/core/models/familia';
+import { CaracteristicasFamiliaDialogComponent } from '../../dialogs/caracteristicas-familia-dialog/caracteristicas-familia-dialog.component';
 import { EncuestasFamiliaComponent } from '../../dialogs/encuestas-familia/encuestas-familia.component';
 import { FamiliaDialogComponent } from '../../dialogs/familia-dialog/familia-dialog.component';
 import { HistoriaFamiliarDialogComponent } from '../../dialogs/historia-familiar-dialog/historia-familiar-dialog.component';
@@ -150,6 +151,13 @@ onPaginateChange(event: PageEvent) {
   openDialogMiebrosDeFamilia(familia: Familia) {
     const dialogRef = this.dialog.open(MiembrosFamiliaComponent, {
       data: {familia: familia}
+    });
+  }
+
+  openDialogCaracterisiticas() {
+    const dialogRef = this.dialog.open(CaracteristicasFamiliaDialogComponent, {
+      height: '600px',
+      width: '90%'
     });
   }
 

@@ -1,0 +1,13 @@
+.mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+
+  mat-grid-tile {
+    border: 1px solid #f3f3f3;
+    background-color: aquamarine;
+  }
+

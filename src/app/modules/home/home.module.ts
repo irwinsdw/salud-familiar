@@ -37,6 +37,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MiembrosFamiliaComponent } from './dialogs/miembros-familia/miembros-familia.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { EncuestasFamiliaComponent } from './dialogs/encuestas-familia/encuestas-familia.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import { CaracteristicasFamiliaDialogComponent } from './dialogs/caracteristicas-familia-dialog/caracteristicas-familia-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { EncuestasFamiliaComponent } from './dialogs/encuestas-familia/encuestas
     EmpleadoVOComponent,
     EmpleadoDialogComponent,
     MiembrosFamiliaComponent,
-    EncuestasFamiliaComponent
+    EncuestasFamiliaComponent,
+    CaracteristicasFamiliaDialogComponent
               
   ],
   imports: [
@@ -77,7 +80,8 @@ import { EncuestasFamiliaComponent } from './dialogs/encuestas-familia/encuestas
     FormsModule, 
     MatAutocompleteModule,
     MatSnackBarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatStepperModule
   ] , 
   providers:[
     {

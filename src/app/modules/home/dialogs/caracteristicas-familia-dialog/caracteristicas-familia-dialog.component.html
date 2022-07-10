@@ -1,0 +1,103 @@
+
+  <mat-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+
+        <mat-grid-list cols="2" rowHeight="3:1">
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                <mat-label>Ingreso Familiar S/</mat-label>
+                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+            </mat-grid-tile>
+          </mat-grid-list>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+      <form [formGroup]="secondFormGroup">
+        <mat-grid-list cols="2" rowHeight="3:1">
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                <mat-label>Ingreso Familiar S/</mat-label>
+                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+            </mat-grid-tile>
+          </mat-grid-list>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+        <form [formGroup]="secondFormGroup">
+            <mat-grid-list cols="2" rowHeight="3:1">
+                <mat-grid-tile>
+                    <mat-form-field appearance="fill">
+                    <mat-label>Ingreso Familiar S/</mat-label>
+                    <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+            </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+    
+                </mat-grid-tile>
+                <mat-grid-tile>
+    
+                </mat-grid-tile>
+                <mat-grid-tile>
+    
+                </mat-grid-tile>
+              </mat-grid-list>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <mat-grid-list cols="2" rowHeight="3:1">
+        <mat-grid-tile>
+            <mat-form-field appearance="fill">
+            <mat-label>Ingreso Familiar S/</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+    </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+
+        </mat-grid-tile>
+        <mat-grid-tile>
+
+        </mat-grid-tile>
+        <mat-grid-tile>
+
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
