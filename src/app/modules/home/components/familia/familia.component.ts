@@ -30,8 +30,7 @@ export class FamiliaComponent implements OnInit {
     
   
 
-  displayedColumns: string[] = ['numero_historia','nombre','telefono','empleado','Acciones'];
-
+    displayedColumns: string[] = ['numero_historia','nombre','telefono','empleado','fechaCreacion','Acciones'];
   dataSource: MatTableDataSource<Familia> = new MatTableDataSource(this.familia);
 
   @ViewChild(MatTable) table!: MatTable<any>;
@@ -164,4 +163,3 @@ onPaginateChange(event: PageEvent) {
 
 
 }
-

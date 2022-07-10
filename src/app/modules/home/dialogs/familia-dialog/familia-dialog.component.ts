@@ -8,7 +8,7 @@ import { Familia } from 'src/app/core/models/familia';
 import { FamiliaComponent } from '../../components/familia/familia.component';
 import { EmpleadoService } from '../../services/empleado.service';
 import { FamiliaService } from '../../services/familia.service';
-
+import { DateAdapter } from '@angular/material/core';
 @Component({
   selector: 'app-familia-dialog',
   templateUrl: './familia-dialog.component.html',
@@ -26,7 +26,7 @@ export class FamiliaDialogComponent implements OnInit {
   aHUrbHu: string[] = ['AH','URB','HU']
   aVCalleJironPasaje: string[] = ['Avenida','Calle','Jiron','Pasaje']
   
-  constructor(private familiaserviceApi:FamiliaService, private empleadoService: EmpleadoService,public dialogRef: MatDialogRef<FamiliaComponent>,
+  constructor(private familiaserviceApi:FamiliaService, private empleadoService: EmpleadoService,public dialogRef:MatDialogRef<FamiliaComponent>,private dateAdapter: DateAdapter<Date>,
     @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -53,9 +53,7 @@ export class FamiliaDialogComponent implements OnInit {
         telefono: new FormControl(familia.telefono, [
           Validators.required
         ]),
-        asentamientoHumano: new FormControl(familia.asentamientoHumano, [
-          Validators.required
-        ]),
+        
         avcalle_jiron_pasaje: new FormControl(familia.avcalle_jiron_pasaje, [
           Validators.required
         ]),
@@ -93,9 +91,7 @@ export class FamiliaDialogComponent implements OnInit {
         telefono: new FormControl('', [
           Validators.required
         ]),
-        asentamientoHumano: new FormControl('', [
-          Validators.required
-        ]),
+       
         avcalle_jiron_pasaje: new FormControl('', [
           Validators.required
         ]),
@@ -131,9 +127,7 @@ export class FamiliaDialogComponent implements OnInit {
         telefono: new FormControl('', [
           Validators.required
         ]),
-        asentamientoHumano: new FormControl('', [
-          Validators.required
-        ]),
+       
         avcalle_jiron_pasaje: new FormControl('', [
           Validators.required
         ]),

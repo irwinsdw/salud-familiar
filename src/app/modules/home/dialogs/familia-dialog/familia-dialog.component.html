@@ -26,10 +26,7 @@
                 <input matInput #input formControlName="telefono">
               </mat-form-field>
   
-              <mat-form-field appearance="legacy">
-                <mat-label>Asentamiento humano</mat-label>
-                <input matInput #input formControlName="asentamientoHumano">
-              </mat-form-field>
+             
             </div>
 
             <div class="input-2-column">
@@ -68,12 +65,24 @@
                 <input matInput #input formControlName="subSector">
               </mat-form-field>
 
-            <div class="input-2-column">
+              <div class="input-2-column">
               
-              <mat-form-field appearance="legacy">
-                <mat-label>Fecha de creción</mat-label>
-                <input matInput #input formControlName="fechaCreacion" placeholder="Ejem: 1994-08-18">
-              </mat-form-field>
+               
+              
+                <mat-form-field appearance="fill">
+                  <mat-label>Fecha Visita</mat-label>
+                  <input
+                    formControlName="fechaCreacion"
+                    matInput
+                    [matDatepicker]="fechaCreacion"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="fechaCreacion"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #fechaCreacion></mat-datepicker>
+                </mat-form-field>
+
               <mat-form-field appearance="legacy">
                 <mat-label>Referencia</mat-label>
                 <input matInput #input formControlName="referencia">

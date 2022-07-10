@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -37,9 +37,15 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MiembrosFamiliaComponent } from './dialogs/miembros-familia/miembros-familia.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { EncuestasFamiliaComponent } from './dialogs/encuestas-familia/encuestas-familia.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+registerLocaleData(localeES, 'es');
+
 import {MatStepperModule} from '@angular/material/stepper';
 import { CaracteristicasFamiliaDialogComponent } from './dialogs/caracteristicas-familia-dialog/caracteristicas-familia-dialog.component';
-
 @NgModule({
   declarations: [
   
@@ -81,14 +87,15 @@ import { CaracteristicasFamiliaDialogComponent } from './dialogs/caracteristicas
     MatAutocompleteModule,
     MatSnackBarModule,
     MatGridListModule,
+    
+    MatNativeDateModule,
+    MatDatepickerModule,
     MatStepperModule
   ] , 
   providers:[
-    {
-       provide: HTTP_INTERCEPTORS,
-       useClass: AuthInterceptor,
-       multi: true
-     }
+    { provide: HTTP_INTERCEPTORS,useClass: AuthInterceptor,multi: true},
+    { provide: LOCALE_ID, useValue: 'es' }
+
    ]
 })
 export class HomeModule { }

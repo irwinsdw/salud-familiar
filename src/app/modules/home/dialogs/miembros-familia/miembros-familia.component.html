@@ -1,61 +1,61 @@
 <div class="container">
-    <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 20px;">
-        <h4 style="font-weight: 700">Miembros de familia - {{familia.nombre | uppercase}}</h4>
-        <div>
-            <button mat-stroked-button color="accent"  mat-dialog-close>
-                <mat-icon >west</mat-icon>
-                Regresar
-            </button>
-            <button mat-stroked-button color="accent" style="margin-left: 10px;" (click)="openEstructuraFamiliar()">
-                <mat-icon>add</mat-icon>
-            </button>
-            
-        </div>
-        
-    </div>
-    
-
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" >
+  <div style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 20px;">
+      <h4 style="font-weight: 700">Miembros de familia - {{familia.nombre | uppercase}}</h4>
+      <div>
+          <button mat-stroked-button color="accent"  mat-dialog-close>
+              <mat-icon >west</mat-icon>
+              Regresar
+          </button>
+          <button mat-stroked-button color="accent" style="margin-left: 10px;" (click)="openEstructuraFamiliar()">
+              <mat-icon>add</mat-icon>
+          </button>
+          
+      </div>
+      
+  </div>
   
-          <!--- Note that these columns can be defined in any order.
-                The actual rendered columns are set as a property on the row definition" -->
-        
-                
-                <ng-container matColumnDef="nombreCompleto">
-                  <th mat-header-cell *matHeaderCellDef> Nombre completo </th>
-                  <td mat-cell *matCellDef="let element">
-                    <div class="mat-list-item">
-                        <mat-list-item>{{element.nombreCompleto}}</mat-list-item>
-                    </div>
-                  </td>
-                </ng-container>
-                  <!-- Position Column -->
-                  <ng-container matColumnDef="dni">
-                      <th mat-header-cell *matHeaderCellDef> DNI </th>
-                      <td mat-cell *matCellDef="let element">
-                        <div class="mat-list-item">
-                            <mat-list-item>{{element.dni}}</mat-list-item>
-                        </div>
-                      </td>
-                    </ng-container>
 
-                   
-        
-          <!-- Name Column -->
-          <ng-container matColumnDef="Acciones" >
-            <th mat-header-cell *matHeaderCellDef > Acciones </th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-button color="accent" style="padding: 0 3px;" (click)="openEstructuraFamiliarEditar(element)">
-                  <mat-icon>mode_edit</mat-icon>
-              </button>
+  <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" >
 
-            </td>
-          </ng-container>
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+              
+              <ng-container matColumnDef="nombreCompleto">
+                <th mat-header-cell *matHeaderCellDef> Nombre completo </th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="mat-list-item">
+                      <mat-list-item>{{element.nombreCompleto}}</mat-list-item>
+                  </div>
+                </td>
+              </ng-container>
+                <!-- Position Column -->
+                <ng-container matColumnDef="dni">
+                    <th mat-header-cell *matHeaderCellDef> DNI </th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="mat-list-item">
+                          <mat-list-item>{{element.dni}}</mat-list-item>
+                      </div>
+                    </td>
+                  </ng-container>
 
-        
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </div >
+                 
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="Acciones" >
+          <th mat-header-cell *matHeaderCellDef > Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button color="accent" style="padding: 0 3px;" (click)="openEstructuraFamiliarEditar(element)">
+                <mat-icon>mode_edit</mat-icon>
+            </button>
+
+          </td>
+        </ng-container>
+
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div >
 </div>

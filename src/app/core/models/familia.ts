@@ -7,7 +7,6 @@ export class Familia {
     telefono!: string;
     numeroHistoria!:string;
     titular!:empleado;
-    asentamientoHumano!: string;
     ahurb_hu!: string;
     avcalle_jiron_pasaje!: string;
     lote!: string;
