@@ -8,8 +8,7 @@ import { Familia } from 'src/app/core/models/familia';
 import { FamiliaComponent } from '../../components/familia/familia.component';
 import { EmpleadoService } from '../../services/empleado.service';
 import { FamiliaService } from '../../services/familia.service';
-import { HistoriaFamiliarDialogComponent } from '../historia-familiar-dialog/historia-familiar-dialog.component';
-
+import { DateAdapter } from '@angular/material/core';
 @Component({
   selector: 'app-familia-dialog',
   templateUrl: './familia-dialog.component.html',
@@ -23,8 +22,11 @@ export class FamiliaDialogComponent implements OnInit {
   empleadosFiltrados!: Observable<any[]>;
   empleadoControl = new FormControl('',[Validators.required]); 
   mostrarAutocomplete: boolean = false;
+
+  aHUrbHu: string[] = ['AH','URB','HU']
+  aVCalleJironPasaje: string[] = ['Avenida','Calle','Jiron','Pasaje']
   
-  constructor(private familiaserviceApi:FamiliaService, private empleadoService: EmpleadoService,public dialogRef: MatDialogRef<FamiliaComponent>,
+  constructor(private familiaserviceApi:FamiliaService, private empleadoService: EmpleadoService,public dialogRef:MatDialogRef<FamiliaComponent>,private dateAdapter: DateAdapter<Date>,
     @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -35,7 +37,6 @@ export class FamiliaDialogComponent implements OnInit {
       
     })
 
-    console.log(this.data)
     if(this.data.familia){
       let familia: Familia = this.data.familia
       
@@ -52,10 +53,11 @@ export class FamiliaDialogComponent implements OnInit {
         telefono: new FormControl(familia.telefono, [
           Validators.required
         ]),
-        asentamientoHumano: new FormControl(familia.asentamientoHumano, [
+        
+        avcalle_jiron_pasaje: new FormControl(familia.avcalle_jiron_pasaje, [
           Validators.required
         ]),
-        direccion: new FormControl(familia.direccion, [
+        ahurb_hu: new FormControl(familia.ahurb_hu, [
           Validators.required
         ]),
         lote: new FormControl(familia.lote, [
@@ -89,10 +91,11 @@ export class FamiliaDialogComponent implements OnInit {
         telefono: new FormControl('', [
           Validators.required
         ]),
-        asentamientoHumano: new FormControl('', [
+       
+        avcalle_jiron_pasaje: new FormControl('', [
           Validators.required
         ]),
-        direccion: new FormControl('', [
+        ahurb_hu: new FormControl('', [
           Validators.required
         ]),
         lote: new FormControl('', [
@@ -124,10 +127,11 @@ export class FamiliaDialogComponent implements OnInit {
         telefono: new FormControl('', [
           Validators.required
         ]),
-        asentamientoHumano: new FormControl('', [
+       
+        avcalle_jiron_pasaje: new FormControl('', [
           Validators.required
         ]),
-        direccion: new FormControl('', [
+        ahurb_hu: new FormControl('', [
           Validators.required
         ]),
         lote: new FormControl('', [
@@ -157,10 +161,8 @@ export class FamiliaDialogComponent implements OnInit {
     }
     this.familiaserviceApi.registrar(familia)
         .subscribe(result => {
-      this.onNoClick()
+      this.dialogRef.close(result.data)
       this.openSnackBar(result.message)
-      const dialogRef = this.dialog.open(HistoriaFamiliarDialogComponent, {
-        data: {familia: result.data} } ) ;
     }, err => {
       this.openSnackBar('Complete correctamene los campos')
     });

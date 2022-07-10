@@ -267,8 +267,7 @@ export class EmpleadoDialogComponent implements OnInit {
 
       if(!this.data.empleado) {
         this.openSnackBar(result.message)
-        
-        this.dialogRef.close();
+        this.dialogRef.close(this.formEmpleado.value);
       } else {
         this.openSnackBar('Empleado actualizado');
         this.dialogRef.close(this.formEmpleado.value);

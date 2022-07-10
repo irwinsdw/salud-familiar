@@ -1,4 +1,3 @@
-
 <div class="container">
 
   <div class="lista">
@@ -33,52 +32,66 @@
                 The actual rendered columns are set as a property on the row definition" -->
         
                 
+              
                 <ng-container matColumnDef="numero_historia">
-                  <th mat-header-cell *matHeaderCellDef> numero_historia </th>
+                  <th mat-header-cell *matHeaderCellDef> NUMERO_HISTORIA </th>
                   <td mat-cell *matCellDef="let element">
                     <div class="mat-list-item">
-                        <mat-list-item>{{element.numeroHistoria}}</mat-list-item>
+                        <mat-list-item>{{element.numeroHistoria | uppercase}}</mat-list-item>
                     </div>
                   </td>
                 </ng-container>
                   <!-- Position Column -->
                   <ng-container matColumnDef="nombre">
-                      <th mat-header-cell *matHeaderCellDef> familia </th>
+                      <th mat-header-cell *matHeaderCellDef> FAMILIA </th>
                       <td mat-cell *matCellDef="let element">
                         <div class="mat-list-item">
-                            <mat-list-item>{{element.nombre}}</mat-list-item>
+                            <mat-list-item>{{element.nombre | uppercase}}</mat-list-item>
                         </div>
                       </td>
                     </ng-container>
 
                     <ng-container matColumnDef="telefono">
-                      <th mat-header-cell *matHeaderCellDef> telefono</th>
+                      <th mat-header-cell *matHeaderCellDef> TELEFONO</th>
                       <td mat-cell *matCellDef="let element">
                         <div class="mat-list-item">
                             <mat-icon style="margin-right: 7px;">location_city</mat-icon>
-                            <mat-list-item>{{element.telefono}}</mat-list-item>
+                            <mat-list-item>{{element.telefono }}</mat-list-item>
                         </div>
                       </td>
                     </ng-container>
                     <ng-container matColumnDef="empleado">
-                      <th mat-header-cell *matHeaderCellDef> empleado </th>
+                      <th mat-header-cell *matHeaderCellDef> EMPLEADO </th>
                       <td mat-cell *matCellDef="let element">
                         <div class="mat-list-item">
-                            <mat-list-item>{{element.titular.nombre}}</mat-list-item>
+                            <mat-list-item>{{element.titular.nombre | uppercase}}</mat-list-item>
                         </div>
                       </td>
                     </ng-container>
+                    <ng-container matColumnDef="fechaCreacion">
+                      <th mat-header-cell *matHeaderCellDef> FECHA_CREACION </th>
+                      <td mat-cell *matCellDef="let element">
+                        <div class="mat-list-item">
+                            <mat-list-item>{{element.fechaCreacion | date:"EEEE dd, MMMM yyyy" | uppercase}}</mat-list-item>
+                        </div>
+                      </td>
+                    </ng-container>
+
+
         
           <!-- Name Column -->
           <ng-container matColumnDef="Acciones" >
-            <th mat-header-cell *matHeaderCellDef > Acciones </th>
+            <th mat-header-cell *matHeaderCellDef > ACCIONES </th>
             <td mat-cell *matCellDef="let familia">
               <button mat-button color="accent" style="padding: 0 3px;" (click)="openDialogActualizar(familia)">
                   <mat-icon>mode_edit</mat-icon>
               </button>
-              <button mat-button color="accent" style="padding: 0 3px;" (click)="eliminarEmpleado(familia)">
-                  <mat-icon >delete</mat-icon>
+              <button mat-button color="accent" style="padding: 0 3px;" (click)="openDialogMiebrosDeFamilia(familia)">
+                  <mat-icon >group</mat-icon>
               </button>
+              <button mat-button color="accent" style="padding: 0 3px;" (click)="openDialogEncuesta(familia)">
+                <mat-icon >folder_copy</mat-icon>
+            </button>
             </td>
           </ng-container>
 

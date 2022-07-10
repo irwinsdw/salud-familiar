@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -34,7 +34,14 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HistoriaFamiliarComponent } from './components/historia-familiar/historia-familiar.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import { MiembrosFamiliaComponent } from './dialogs/miembros-familia/miembros-familia.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { EncuestasFamiliaComponent } from './dialogs/encuestas-familia/encuestas-familia.component';
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+registerLocaleData(localeES, 'es');
 @NgModule({
   declarations: [
   
@@ -49,7 +56,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     EstructuraFamiliarDialogComponent,
     EmpleadoComponent,
     EmpleadoVOComponent,
-    EmpleadoDialogComponent
+    EmpleadoDialogComponent,
+    MiembrosFamiliaComponent,
+    EncuestasFamiliaComponent
               
   ],
   imports: [
@@ -71,14 +80,15 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatDialogModule,
     FormsModule, 
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatGridListModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ] , 
   providers:[
-    {
-       provide: HTTP_INTERCEPTORS,
-       useClass: AuthInterceptor,
-       multi: true
-     }
+    { provide: HTTP_INTERCEPTORS,useClass: AuthInterceptor,multi: true},
+    { provide: LOCALE_ID, useValue: 'es' }
+
    ]
 })
 export class HomeModule { }

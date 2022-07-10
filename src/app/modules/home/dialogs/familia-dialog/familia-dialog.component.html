@@ -26,16 +26,33 @@
                 <input matInput #input formControlName="telefono">
               </mat-form-field>
   
+             
+            </div>
+
+            <div class="input-2-column">
+              
               <mat-form-field appearance="legacy">
-                <mat-label>Asentamiento humano</mat-label>
-                <input matInput #input formControlName="asentamientoHumano">
+                <mat-label>AH/URB/HU</mat-label>
+                <mat-select formControlName="ahurb_hu">
+                  <mat-option *ngFor="let item of aHUrbHu" [value]="item">
+                    {{item}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>Av/Calle/Jiron/Pasaje</mat-label>
+                <mat-select formControlName="avcalle_jiron_pasaje">
+                  <mat-option *ngFor="let item of aVCalleJironPasaje" [value]="item">
+                    {{item}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
             
             <div class="input-2-column">
               <mat-form-field appearance="legacy">
-                <mat-label>Dirección</mat-label>
-                <input matInput #input formControlName="direccion">
+                <mat-label>Manzána</mat-label>
+                <input matInput #input formControlName="manzana">
               </mat-form-field>
               <mat-form-field appearance="legacy">
                 <mat-label>Lote</mat-label>
@@ -43,23 +60,29 @@
               </mat-form-field>
             </div>
 
-            <div class="input-2-column">
-              <mat-form-field appearance="legacy">
-                <mat-label>Manzana</mat-label>
-                <input matInput #input formControlName="manzana">
-              </mat-form-field>
               <mat-form-field appearance="legacy">
                 <mat-label>Sub Sector</mat-label>
                 <input matInput #input formControlName="subSector">
               </mat-form-field>
-            </div>
 
-            <div class="input-2-column">
+              <div class="input-2-column">
               
-              <mat-form-field appearance="legacy">
-                <mat-label>Fecha de creción</mat-label>
-                <input matInput #input formControlName="fechaCreacion" placeholder="Ejem: 1994-08-18">
-              </mat-form-field>
+               
+              
+                <mat-form-field appearance="fill">
+                  <mat-label>Fecha Visita</mat-label>
+                  <input
+                    formControlName="fechaCreacion"
+                    matInput
+                    [matDatepicker]="fechaCreacion"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="fechaCreacion"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #fechaCreacion></mat-datepicker>
+                </mat-form-field>
+
               <mat-form-field appearance="legacy">
                 <mat-label>Referencia</mat-label>
                 <input matInput #input formControlName="referencia">

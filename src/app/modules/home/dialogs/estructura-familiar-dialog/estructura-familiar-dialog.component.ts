@@ -18,7 +18,7 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
   clasificacionesSeleccionadas: FormArray =  new FormArray([]);
   empleadoControlForm: FormControl = new FormControl();
 
-  seguros: string[] = ['SIS', 'ESSALUD','PRIMA','FAA','POLICINA NACIONAL','PRIVADO','SIN SEGURO'];
+  seguros: string[] = ['SIS', 'ESSALUD','PRIMA','FAA','POLICIA NACIONAL','PRIVADO','SIN SEGURO'];
   
   clasifiacionesRiesgosas: any[] = [
     {nombre:'Gestante', estado: false},{nombre:'Hipertensión Arterial', estado: false},{nombre:'Discapacidad', estado: false},

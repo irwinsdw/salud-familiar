@@ -32,7 +32,10 @@ const routes: Routes = [
   {
     path: 'empleado-vo',
     component: EmpleadoVOComponent
-  }
+  },
+  {
+  path: '**',
+  redirectTo: '/home/empleado'}
 ];
 
 @NgModule({
