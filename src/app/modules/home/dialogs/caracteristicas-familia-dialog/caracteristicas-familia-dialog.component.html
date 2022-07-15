@@ -1,103 +1,370 @@
 
-  <mat-stepper [linear]="isLinear" #stepper>
+  <mat-stepper [linear]="false" #stepper>
     <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
+      <form #form="ngForm">
+        <ng-template matStepLabel>Paso 1</ng-template>
 
-        <mat-grid-list cols="2" rowHeight="3:1">
-            <mat-grid-tile>
-                <mat-form-field appearance="fill">
-                <mat-label>Ingreso Familiar S/</mat-label>
-                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-        </mat-form-field>
+        <mat-grid-list cols="3" rowHeight="200px">
+            <mat-grid-tile >
+              <div class="container-grid-tile">
+                <div class="grid-item">
+                  <h2 class="example-h2">{{ingresoFamiliar.nombre}}</h2>
+
+                  <mat-form-field class="example-full-width" appearance="outline" *ngFor="let i of ingresoFamiliar.item">
+                    <mat-label>{{i.nombre}}</mat-label>
+                    <input matInput type="number" [(ngModel)]="ingresoFamiliarMonto" name="ingresoMensual">
+                  </mat-form-field>
+                </div>
+              </div>
+
+
             </mat-grid-tile>
             <mat-grid-tile>
+              <div class="container-grid-tile">
+                <div class="grid-item">
+                  <h2 class="example-h2">{{aguaDeConsumo.nombre}}</h2>
+  
+                  <section class="example-section">
+                    <mat-radio-group aria-label="Select an option">
+                      <div *ngFor="let i of aguaDeConsumo.item">
+                        <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestasMultiple(i,aguaDeConsumo.id,'true')" value="true{{i.id}}" [checked]="i?.activo">{{i.nombre}}</mat-radio-button><br>
+                      </div>
+                    </mat-radio-group>
+                  </section>
+                </div>
+              </div>
+              
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="container-grid-tile">
+                <div class="grid-item">
+                  <h2 class="example-h2">{{abastecimientoDeAgua.nombre}}</h2>
+                  <section class="example-section">
+                    <div *ngFor="let i of abastecimientoDeAgua.item">
+                      <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                    </div>
+                  </section>
+                </div>
+                </div>
 
             </mat-grid-tile>
             <mat-grid-tile>
-
+              <div class="container-grid-tile">
+                <div class="grid-item">
+                  <h2 class="example-h2">{{combustibleParaCocinar.nombre}}</h2>
+  
+                  <section class="example-section">
+                    <div *ngFor="let i of combustibleParaCocinar.item">
+                      <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                    </div>
+                  </section>
+                </div>
+              </div>
             </mat-grid-tile>
             <mat-grid-tile>
+              <div class="container-grid-tile">
+                <div class="grid-item">
+                  <h2 class="example-h2">{{nroPersonasPorHabitacion.nombre}}</h2>
+  
+                  <section class="example-section">
+                    <mat-radio-group aria-label="Select an option">
+                      <div  *ngFor="let i of nroPersonasPorHabitacion.item">
+                        <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestasMultiple2(i,nroPersonasPorHabitacion.id,'true')" value="SI{{i?.id}}" [checked]="i?.activo">{{i.nombre}}</mat-radio-button><br>
+                      </div>
+                    </mat-radio-group>
 
+                  </section>
+                </div>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="container-grid-tile">
+                <div class="grid-item">
+                  <h2 class="example-h2">{{conservacionDeAlimentos.nombre}}</h2>
+  
+                  <section class="example-section">
+                    <div *ngFor="let i of conservacionDeAlimentos.item">
+                      <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                    </div>
+                    
+                  </section>
+                </div>
+              </div>
             </mat-grid-tile>
           </mat-grid-list>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-stroked-button color="primary" style="margin-top: 10px" (click)="checkValidationsStep1()" >Siguiente</button>
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+    <mat-step [stepControl]="secondFormGroup" label="Paso 2">
       <form [formGroup]="secondFormGroup">
-        <mat-grid-list cols="2" rowHeight="3:1">
-            <mat-grid-tile>
-                <mat-form-field appearance="fill">
-                <mat-label>Ingreso Familiar S/</mat-label>
-                <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-        </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
+        <mat-grid-list cols="3" rowHeight="250px">
+          <mat-grid-tile >
+            <div class="container-grid-tile">
+              <div class="grid-item">
+                <h2 class="example-h2">{{materialDelPiso.nombre}}</h2>
 
-            </mat-grid-tile>
-            <mat-grid-tile>
+                <section class="example-section">
+                  <div *ngFor="let i of materialDelPiso.item">
+                    <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                  </div>
+                </section>
+              </div>
+            </div>
 
-            </mat-grid-tile>
-            <mat-grid-tile>
 
-            </mat-grid-tile>
-          </mat-grid-list>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="container-grid-tile">
+              <div class="grid-item">
+                <h2 class="example-h2">{{materialesDePared.nombre}}</h2>
+
+                <section class="example-section">
+                  <div *ngFor="let i of materialesDePared.item">
+                    <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                  </div>
+                </section>
+              </div>
+            </div>
+            
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="container-grid-tile">
+              <div class="grid-item">
+                <h2 class="example-h2">{{materialDeTecho.nombre}}</h2>
+                <section class="example-section">
+                  <div *ngFor="let i of materialDeTecho.item">
+                    <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                  </div>
+                </section>
+              </div>
+              </div>
+
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="container-grid-tile">
+              <div class="grid-item">
+                <h2 class="example-h2">{{eliminacionDeExcretas.nombre}}</h2>
+
+                <section class="example-section">
+                  <div *ngFor="let i of eliminacionDeExcretas.item">
+                    <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="container-grid-tile">
+              <div class="grid-item">
+                <h2 class="example-h2">{{disposicionDeBasura.nombre}}</h2>
+
+                <section class="example-section">
+                  <div  *ngFor="let i of disposicionDeBasura.item">
+                    <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="container-grid-tile">
+              <div class="grid-item">
+                <h2 class="example-h2">{{serviciosEnDomicilio.nombre}}</h2>
+
+                <section class="example-section">
+                  <div *ngFor="let i of serviciosEnDomicilio.item">
+                    <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox><br>
+                  </div>
+                  
+                </section>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-stroked-button color="accent" style="margin-top: 10px" matStepperPrevious>Atrás</button>
+          <button mat-stroked-button color="primary" style="margin-top: 10px" matStepperNext>Siguiente</button>
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-        <form [formGroup]="secondFormGroup">
-            <mat-grid-list cols="2" rowHeight="3:1">
+    <mat-step [stepControl]="secondFormGroup" label="Paso 3">
+        <form #form3="ngForm">
+            <mat-grid-list cols="2" rowHeight="150px">
                 <mat-grid-tile>
-                    <mat-form-field appearance="fill">
-                    <mat-label>Ingreso Familiar S/</mat-label>
-                    <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-            </mat-form-field>
+                  <div class="container-grid-tile">
+                    <div class="grid-item">
+                      <h2 class="example-h2">{{familiaBotiquinEmergencia.nombre}}</h2>
+      
+                      <section class="example-section">
+                        <div>
+                          <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(familiaBotiquinEmergencia.item[0],'true')" [checked]="familiaBotiquinEmergencia.item[0]?.activo == true" value="SIf">SI</mat-radio-button>
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(familiaBotiquinEmergencia.item[0],'false')" [checked]="familiaBotiquinEmergencia.item[0]?.activo == false" value="NOf">NO</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        
+                      </section>
+                    </div>
+                  </div>
                 </mat-grid-tile>
                 <mat-grid-tile>
-    
+                  <div class="container-grid-tile">
+                    <div class="grid-item">
+                      <h2 class="example-h2">{{familiaMochilaEmergencia.nombre}}</h2>
+      
+                      <section class="example-section">
+                        <div>
+                          <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(familiaMochilaEmergencia.item[0],'true')" [checked]="familiaMochilaEmergencia.item[0]?.activo == true" value="SIe">SI</mat-radio-button>
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(familiaMochilaEmergencia.item[0],'false')" [checked]="familiaMochilaEmergencia.item[0]?.activo == false" value="NOe">NO</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        
+                      </section>
+                    </div>
+                  </div>
                 </mat-grid-tile>
                 <mat-grid-tile>
-    
+                  <div class="container-grid-tile">
+                    <div class="grid-item">
+                      <h2 class="example-h2">{{viviendaConEspaciosDestinados.nombre}}</h2>
+      
+                      <section class="example-section">
+                        <div>
+                          <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(viviendaConEspaciosDestinados.item[0],'true')" [checked]="viviendaConEspaciosDestinados.item[0]?.activo == true" value="SIs">SI</mat-radio-button>
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(viviendaConEspaciosDestinados.item[0],'false')" [checked]="viviendaConEspaciosDestinados.item[0]?.activo == false" value="NOs">NO</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        
+                      </section>
+                    </div>
+                  </div>
                 </mat-grid-tile>
                 <mat-grid-tile>
-    
+                  <div class="container-grid-tile">
+                    <div class="grid-item">
+                      <h2 class="example-h2">{{cocinaConSistemaEliminacionHumo.nombre}}</h2>
+      
+                      <section class="example-section">
+                        <div>
+                          <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(cocinaConSistemaEliminacionHumo.item[0],'true')" [checked]="cocinaConSistemaEliminacionHumo.item[0]?.activo == true" value="SIx">SI</mat-radio-button>
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(cocinaConSistemaEliminacionHumo.item[0],'false')" [checked]="cocinaConSistemaEliminacionHumo.item[0]?.activo == false" value="NOx">NO</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        
+                      </section>
+                    </div>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <div class="container-grid-tile">
+                    <div class="grid-item">
+                      <h2 class="example-h2">{{viviendaConInfraestructuraRiesgo.nombre}}</h2>
+      
+                      <section class="example-section">
+                        <div>
+                          <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(viviendaConInfraestructuraRiesgo.item[1],'true')" [checked]="viviendaConInfraestructuraRiesgo.item[1]?.activo == true" value="SI1">SI</mat-radio-button>
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(viviendaConInfraestructuraRiesgo.item[1],'false')" [checked]="viviendaConInfraestructuraRiesgo.item[1]?.activo == false" value="NO1">NO</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <mat-form-field class="example-full-width" appearance="legacy" >
+                          <mat-label>Describir</mat-label>
+                          <input matInput [(ngModel)]="infraRiesgoDescripcion" name="infra">
+                        </mat-form-field>
+                      </section>
+                    </div>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <div class="container-grid-tile">
+                    <div class="grid-item">
+                      <h2 class="example-h2">{{presenciaDeVectoresEnVivienda.nombre}}</h2>
+      
+                      <section class="example-section">
+                        <div>
+                          <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(presenciaDeVectoresEnVivienda.item[1],'true')" [checked]="presenciaDeVectoresEnVivienda.item[1]?.activo == true" value="SI2">SI</mat-radio-button>
+                            <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(presenciaDeVectoresEnVivienda.item[1],'false')" [checked]="presenciaDeVectoresEnVivienda.item[1]?.activo == false" value="NO2">NO</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                        <mat-form-field class="example-full-width" appearance="legacy">
+                          <mat-label>Describir</mat-label>
+                          <input matInput [(ngModel)]="presenciaVectorDescripcion" name="presenciaVectorDescripcion">
+                        </mat-form-field>
+                      </section>
+                    </div>
+                  </div>
                 </mat-grid-tile>
               </mat-grid-list>
+
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-stroked-button color="accent" style="margin-top: 10px" matStepperPrevious>Atrás</button>
+            <button mat-stroked-button color="primary" style="margin-top: 10px" (click)="checkValidationsStep3()">Siguiente</button>
           </div>
         </form>
       </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <mat-grid-list cols="2" rowHeight="3:1">
-        <mat-grid-tile>
-            <mat-form-field appearance="fill">
-            <mat-label>Ingreso Familiar S/</mat-label>
-            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-    </mat-form-field>
+      <ng-template matStepLabel>Pas 4</ng-template>
+      <mat-grid-list cols="2" rowHeight="200px">
+        <mat-grid-tile rowspan="2">
+          <div class="container-grid-tile">
+            <div class="grid-item">
+              <h2 class="example-h2">{{riesgoDelEntorno.nombre}}</h2>
+
+              <section class="example-section">
+                <div *ngFor="let i of riesgoDelEntorno.item">
+                  <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox>
+                </div>
+                
+              </section>
+            </div>
+          </div>
         </mat-grid-tile>
         <mat-grid-tile>
+          <div class="container-grid-tile">
+            <div class="grid-item">
+              <h2 class="example-h2">{{disponibilidadTransportePropio.nombre}}</h2>
 
+              <section class="example-section">
+                <div *ngFor="let i of disponibilidadTransportePropio.item">
+                  <mat-checkbox class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo">{{i.nombre}}</mat-checkbox>
+                </div>
+                
+              </section>
+            </div>
+          </div>
         </mat-grid-tile>
         <mat-grid-tile>
+          <div class="container-grid-tile">
+            <div class="grid-item">
+              <h2 class="example-h2">{{tenenciaDeAnimales.nombre}}</h2>
 
-        </mat-grid-tile>
-        <mat-grid-tile>
-
+              <section class="example-section">
+                <div *ngFor="let i of tenenciaDeAnimales.item">
+                  <span>{{i.nombre}}</span><br>
+                  <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'true')" [checked]="i?.activo == true" value="SI">SI</mat-radio-button>
+                    <mat-radio-button class="example-margin" color="primary" (click)="agregarRespuestaToListaRespuestas(i,'false')" [checked]="i?.activo == false" value="NO">NO</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                
+              </section>
+            </div>
+          </div>
         </mat-grid-tile>
       </mat-grid-list>
-      <div>
+      <!-- <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
+      </div> -->
+      <div>
+        <button mat-stroked-button color="accent" style="margin-top: 10px" matStepperPrevious>Atrás</button>
+        <button mat-stroked-button color="primary" style="margin-top: 10px"   (click)="agregarRespuestaCaracteristica()">Finalizar</button>
       </div>
     </mat-step>
   </mat-stepper>

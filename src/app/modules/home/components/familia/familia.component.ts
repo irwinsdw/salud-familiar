@@ -153,10 +153,11 @@ onPaginateChange(event: PageEvent) {
     });
   }
 
-  openDialogCaracterisiticas() {
+  openDialogCaracterisiticas(familia: Familia) {
     const dialogRef = this.dialog.open(CaracteristicasFamiliaDialogComponent, {
       height: '600px',
-      width: '90%'
+      width: '90%',
+      data: {familiaId: familia.id}
     });
   }
 
