@@ -29,7 +29,7 @@ export class CaracteristicasFamiliaDialogComponent implements OnInit {
   familiaId!: number;
 
   ingresoFamiliarMonto!: number;
-
+  
   infraRiesgoDescripcion!: string;
 
   presenciaVectorDescripcion!: string;

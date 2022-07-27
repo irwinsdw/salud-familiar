@@ -22,14 +22,18 @@
               <div class="input-2-column">
                 <mat-form-field appearance="legacy">
                   <mat-label>Estado Civil</mat-label>
-                  <input matInput #input formControlName="estadoCivil">
+                  <mat-select formControlName="estadoCivil">
+                    <mat-option *ngFor="let estadocivil of estado_civil" [value]="estadocivil">
+                      {{estadocivil}}
+                    </mat-option>
+                  </mat-select>
                 </mat-form-field>
               
                 <mat-form-field appearance="legacy">
                     <mat-label>Seguro médico</mat-label>
                     <mat-select formControlName="seguro">
-                      <mat-option *ngFor="let seguro of seguros" [value]="seguro">
-                        {{seguro}}
+                      <mat-option *ngFor="let seguromedico of seguros" [value]="seguromedico">
+                        {{seguromedico}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -50,8 +54,8 @@
 
               <mat-radio-group aria-label="Select an option" formControlName="genero">
                 Sexo: 
-                <mat-radio-button value="masculino" style="margin-left: 10px;">Masculino</mat-radio-button>
-                <mat-radio-button value="femenino">Femenino</mat-radio-button>
+                <mat-radio-button value="masculino" style="margin-left: 10px;">MASCULINO</mat-radio-button>
+                <mat-radio-button value="femenino">FEMENINO</mat-radio-button>
               </mat-radio-group>
 
 
@@ -59,7 +63,11 @@
               <div class="input-2-column"  style="margin-top: 12px;">
                 <mat-form-field appearance="legacy">
                   <mat-label>Grado de instrucción</mat-label>
-                  <input matInput #input formControlName="estudios">
+                  <mat-select formControlName="estudios">
+                    <mat-option *ngFor="let gradoinstruccion of grado_instruccion" [value]="gradoinstruccion">
+                      {{gradoinstruccion}}
+                    </mat-option>
+                  </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Ocupación</mat-label>
@@ -81,18 +89,30 @@
                 </mat-form-field> -->
                 <mat-form-field appearance="legacy">
                     <mat-label>Idioma</mat-label>
-                    <input matInput #input formControlName="idioma">
+                    <mat-select formControlName="idioma">
+                      <mat-option *ngFor="let lengua of idiomas" [value]="lengua">
+                        {{lengua}}
+                      </mat-option>
+                    </mat-select>
                   </mat-form-field>
                   <mat-form-field appearance="legacy">
                     <mat-label>Religión</mat-label>
-                    <input matInput #input formControlName="religion">
+                    <mat-select formControlName="religion">
+                      <mat-option *ngFor="let religioso of religiones" [value]="religioso">
+                        {{religioso}}
+                      </mat-option>
+                    </mat-select>
                   </mat-form-field>
               </div>
               <div class="input-2-column" >
 
                 <mat-form-field appearance="legacy">
                     <mat-label>Pertenencia Étnica</mat-label>
-                    <input matInput #input formControlName="pertenenciaEtnica">
+                    <mat-select formControlName="pertenenciaEtnica">
+                      <mat-option *ngFor="let etnia of etnias" [value]="etnia">
+                        {{etnia}}
+                      </mat-option>
+                    </mat-select>
                   </mat-form-field>
                   <mat-form-field appearance="legacy">
                     <mat-label>Familia</mat-label>

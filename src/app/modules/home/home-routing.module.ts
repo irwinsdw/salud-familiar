@@ -7,6 +7,7 @@ import { HistoriaFamiliarComponent } from './components/historia-familiar/histor
 import { EmpleadoComponent } from './components/empleado/empleado.component'; 
 
 import { EmpleadoVOComponent } from './components/empleado-vo/empleado-vo.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 const routes: Routes = [
   {
@@ -27,8 +28,8 @@ const routes: Routes = [
   },
   {
     path: 'empleado',
-    component: EmpleadoComponent
-  },
+    component: EmpleadoComponent },
+  
   {
     path: 'empleado-vo',
     component: EmpleadoVOComponent

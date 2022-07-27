@@ -34,7 +34,7 @@ mat-list {
 .example-header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
-  width: 70px;
+  width: 60px;
   height: 70px;
   border-radius: 50%;
 }

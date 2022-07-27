@@ -9,12 +9,12 @@
 
             <div class="input-2-column">
               <mat-form-field appearance="legacy">
-                <mat-label>nmro historia</mat-label>
+                <mat-label>NUMERO_HISTORIA</mat-label>
                 <input matInput #input formControlName="numeroHistoria">
               </mat-form-field>
             
               <mat-form-field appearance="legacy">
-                <mat-label>nombre</mat-label>
+                <mat-label>NOMBRE</mat-label>
                 <input matInput #input formControlName="nombre">
               </mat-form-field>
               
@@ -22,7 +22,7 @@
 
             <div class="input-2-column">
               <mat-form-field appearance="legacy">
-                <mat-label>Teléfono</mat-label>
+                <mat-label>TELEFONO</mat-label>
                 <input matInput #input formControlName="telefono">
               </mat-form-field>
   
@@ -40,7 +40,7 @@
                 </mat-select>
               </mat-form-field>
               <mat-form-field appearance="legacy">
-                <mat-label>Av/Calle/Jiron/Pasaje</mat-label>
+                <mat-label>AV/CALLE/JIRON/PASAJE</mat-label>
                 <mat-select formControlName="avcalle_jiron_pasaje">
                   <mat-option *ngFor="let item of aVCalleJironPasaje" [value]="item">
                     {{item}}
@@ -51,17 +51,17 @@
             
             <div class="input-2-column">
               <mat-form-field appearance="legacy">
-                <mat-label>Manzána</mat-label>
+                <mat-label>MANZANA</mat-label>
                 <input matInput #input formControlName="manzana">
               </mat-form-field>
               <mat-form-field appearance="legacy">
-                <mat-label>Lote</mat-label>
+                <mat-label>LOTE</mat-label>
                 <input matInput #input formControlName="lote">
               </mat-form-field>
             </div>
 
               <mat-form-field appearance="legacy">
-                <mat-label>Sub Sector</mat-label>
+                <mat-label>SUB SECTOR</mat-label>
                 <input matInput #input formControlName="subSector">
               </mat-form-field>
 
@@ -70,7 +70,7 @@
                
               
                 <mat-form-field appearance="fill">
-                  <mat-label>Fecha Visita</mat-label>
+                  <mat-label>FICHA FAMILIAR</mat-label>
                   <input
                     formControlName="fechaCreacion"
                     matInput
@@ -84,17 +84,17 @@
                 </mat-form-field>
 
               <mat-form-field appearance="legacy">
-                <mat-label>Referencia</mat-label>
+                <mat-label>REFERENCIA</mat-label>
                 <input matInput #input formControlName="referencia">
               </mat-form-field>
             </div>
               <mat-form-field appearance="fill" *ngIf="empleadoInputDeshabilitado">
-                <mat-label>titular</mat-label>
+                <mat-label>TITULAR</mat-label>
                 <input matInput #input formControlName="titular" >
               </mat-form-field>
 
               <mat-form-field appearance="legacy" *ngIf="!empleadoInputDeshabilitado">
-                <mat-label>Empleado</mat-label>
+                <mat-label>EMPLEADO</mat-label>
                 <input type="text" matInput [formControl]="empleadoControl" [matAutocomplete]="auto3" placeholder="Ingrese el nombre para iniciar busqueda">
                 <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displayFn">
                   <mat-option *ngFor="let empleado of empleadosFiltrados | async" [value]="empleado" [ngClass]="{'hide-autocomplete': !mostrarAutocomplete}">

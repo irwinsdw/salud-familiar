@@ -22,7 +22,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 })
 export class EmpleadoDialogComponent implements OnInit {
   
- 
+ //ejemplo
   empleado: empleado = new empleado();
   EmpleadoEncontrado: empleado = new empleado();
   formEmpleado: FormGroup = new FormGroup({});

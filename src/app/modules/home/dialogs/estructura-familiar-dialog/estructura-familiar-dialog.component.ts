@@ -17,9 +17,13 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
   formPersona: FormGroup = new FormGroup({});
   clasificacionesSeleccionadas: FormArray =  new FormArray([]);
   empleadoControlForm: FormControl = new FormControl();
-
+  religiones:string[]=['CATOLICO','EVANGELICO','OTROS'];
+  etnias:string[]=['MESTIZO','SHIPIBO-KONIBO','ASHANINKA','AYMARA','BLANCO','OTROS'];
   seguros: string[] = ['SIS', 'ESSALUD','PRIMA','FAA','POLICIA NACIONAL','PRIVADO','SIN SEGURO'];
-  
+  estado_civil:string[]=['SOLTERO','CASADO','DIVORCIADO/A','VIUDO/A','CONVIVIENTE'];
+  grado_instruccion:string[]=['INICIAL','PRIMARIA COMPLETA','SECUNDARIA COMPLETA','PRIMARIA INCOMPLETA','SECUNDARIA INCOMPLETA','SUPERIOR UNIVERSITARIO COMPLETO'
+  ,'SUPERIOR UNIVERSITARIO INCOMPLETO','SUPERIOR TECNICO COMPLETO','SUPERIOR TECNICO INCOMPLETO'];
+  idiomas:string[]=['CASTELLANO','SHIPIBO-KONIBO','ASHANINKA','OTROS']
   clasifiacionesRiesgosas: any[] = [
     {nombre:'Gestante', estado: false},{nombre:'Hipertensión Arterial', estado: false},{nombre:'Discapacidad', estado: false},
     {nombre:'T.B.C', estado: false},{nombre:'Diabetes crónica', estado: false},{nombre:'Diabetes mellitus', estado: false},

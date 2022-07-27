@@ -47,4 +47,15 @@ mat-toolbar {
 }
 
 
-
+section {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    background: linear-gradient(90deg, rgba(11,9,120,1) 37%, rgba(87,7,96,1) 74%);
+    background: rgb(11,9,120);
+    background-image: url('/assets/imagenes/medicina-familiar.jpg');
+    background-size: cover;
+    height: 90%;
+  }

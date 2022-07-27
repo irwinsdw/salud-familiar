@@ -24,7 +24,7 @@ export class FamiliaDialogComponent implements OnInit {
   mostrarAutocomplete: boolean = false;
 
   aHUrbHu: string[] = ['AH','URB','HU']
-  aVCalleJironPasaje: string[] = ['Avenida','Calle','Jiron','Pasaje']
+  aVCalleJironPasaje: string[] = ['AVENIDA','CALLE','JIRON','PASAJE']
   
   constructor(private familiaserviceApi:FamiliaService, private empleadoService: EmpleadoService,public dialogRef:MatDialogRef<FamiliaComponent>,private dateAdapter: DateAdapter<Date>,
     @Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
