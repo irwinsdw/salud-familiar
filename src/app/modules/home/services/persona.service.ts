@@ -28,6 +28,10 @@ export class PersonaService extends GenericoService {
     return this.http.get<any>(`${this.url}/burcar_por_dni/${dni}`);
   }
 
+  listaClasificacionRiesgo(): Observable<any> {
+    return this.http.get<any>(`${this.url}/clasificacion-riesgo`);
+  }
+
 
   
 }

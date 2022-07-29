@@ -1,3 +1,4 @@
+import { ClasificacionRiesgo } from "./clasificacion-riesgo";
 import { Familia } from "./familia";
 
 export class Persona {
@@ -11,7 +12,7 @@ export class Persona {
     genero!: string;
     estudios!: string;
     ocupacion!: string;
-    clasificacionRiesgo!: string;
+    riesgospersonas: ClasificacionRiesgo[] = [];
     idioma!: string;
     religion!: string;
     pertenenciaEtnica!: string;

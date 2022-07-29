@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClasificacionRiesgo } from 'src/app/core/models/clasificacion-riesgo';
 import { Familia } from 'src/app/core/models/familia';
 import { Persona } from 'src/app/core/models/persona';
 import { EstructuraFamiliarComponent } from '../../components/estructura-familiar/estructura-familiar.component';
@@ -24,12 +25,9 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
   grado_instruccion:string[]=['INICIAL','PRIMARIA COMPLETA','SECUNDARIA COMPLETA','PRIMARIA INCOMPLETA','SECUNDARIA INCOMPLETA','SUPERIOR UNIVERSITARIO COMPLETO'
   ,'SUPERIOR UNIVERSITARIO INCOMPLETO','SUPERIOR TECNICO COMPLETO','SUPERIOR TECNICO INCOMPLETO'];
   idiomas:string[]=['CASTELLANO','SHIPIBO-KONIBO','ASHANINKA','OTROS']
-  clasifiacionesRiesgosas: any[] = [
-    {nombre:'Gestante', estado: false},{nombre:'Hipertensión Arterial', estado: false},{nombre:'Discapacidad', estado: false},
-    {nombre:'T.B.C', estado: false},{nombre:'Diabetes crónica', estado: false},{nombre:'Diabetes mellitus', estado: false},
-    {nombre:'Niño < 5 sin cred/sin vacuna', estado: false},{nombre:'Dengue', estado: false},{nombre:'Mujer en edad fértil sin PPFF', estado: false},
-    {nombre:'Mujer en edad fértil sin PAP', estado: false},{nombre:'Otros', estado: false},{nombre:'No refiere', estado: false},
-  ]
+  listaClasificacionRiesgo: ClasificacionRiesgo[] = []
+
+  listaClasificacionSeleccionado: any[] = []; 
 
   constructor(public dialogRef: MatDialogRef<EstructuraFamiliarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private personaService: PersonaService, private _snackBar: MatSnackBar) {
@@ -37,19 +35,13 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
      }
 
   ngOnInit(): void {
+
     if(this.data.persona){
       let persona: Persona = this.data.persona;
+
       this.empleadoControlForm = new FormControl(this.data.persona.familia.nombre)
-      if(persona.clasificacionRiesgo.length > 0){
-        // persona.clasificacionRiesgo.forEach(c => {
-        //   this.clasifiacionesRiesgosas.forEach(c2 => {
-        //     if(c == c2.nombre) c2.estado = true; return
-        //   })
-        // })
-      }
-
+      this.listaClasificacionSeleccionado = persona.riesgospersonas
       
-
       this.formPersona = new FormGroup({
         nombreCompleto: new FormControl(persona.nombreCompleto, [
           Validators.required
@@ -77,10 +69,7 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
         ]),
         ocupacion: new FormControl(persona.ocupacion,[
           Validators.required
-        ])
-        ,
-        clasificacionRiesgo: new FormArray([])
-        ,
+        ]),
         idioma: new FormControl(persona.idioma,[
           Validators.required
         ]),
@@ -92,8 +81,28 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
         ]),
         
       });
+
+      this.personaService.listaClasificacionRiesgo()
+      .subscribe(response => {
+        this.listaClasificacionRiesgo = response;
+
+        this.listaClasificacionRiesgo.forEach(c => {
+          persona.riesgospersonas.forEach(r => {
+            if(c.id == r.id) {
+              c.estado = true;
+            }
+          })
+        })
+
+       
+        
+      })
+
+
+      
     }else {
-      console.log(this.data)
+      this.personaService.listaClasificacionRiesgo()
+      .subscribe(response => this.listaClasificacionRiesgo = response)
       this.empleadoControlForm = new FormControl(this.data.familia.nombre)
       this.formPersona = new FormGroup({
         nombreCompleto: new FormControl('', [
@@ -123,8 +132,6 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
         ocupacion: new FormControl('',[
           Validators.required
         ]),
-        clasificacionRiesgo: new FormArray([])
-        ,
         idioma: new FormControl('',[
           Validators.required
         ]),
@@ -139,17 +146,15 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
   }
 
   onCheckboxChange(event: any) {
-    const clasificacionesSeleccionadas = (this.formPersona.controls['clasificacionRiesgo'] as FormArray);
-    console.log(event)
     if (event.checked) {
-      clasificacionesSeleccionadas.push(new FormControl(event.source.value));
+      let clasificacionSeleccionada = new ClasificacionRiesgo();
+      clasificacionSeleccionada.id = +event.source.value;
+      this.listaClasificacionSeleccionado.push({id: +event.source.value})
       
     } else {
-      const index = clasificacionesSeleccionadas.controls
-      .findIndex(x => x.value === event.source.value);
-      clasificacionesSeleccionadas.removeAt(index);
+      this.listaClasificacionSeleccionado = this.listaClasificacionSeleccionado.filter(c => c.id != +event.source.value)
     }
-    console.log(clasificacionesSeleccionadas.value)
+
   }
 
     
@@ -168,12 +173,13 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
     }
 
     persona.familia = familia;
-    persona.clasificacionRiesgo = 'PRUEBA'
+    persona.riesgospersonas = this.listaClasificacionSeleccionado
     this.personaService.registrar(this.formPersona.value)
         .subscribe(response => {
-          if(!this.data.familia) {
+          if(persona.id) {
             this.openSnackBar('Actualización exitosa')
             this.dialogRef.close(response.data);
+            return
           }
           this.dialogRef.close(response.data);
           this.openSnackBar(response.message)
@@ -197,7 +203,6 @@ export class EstructuraFamiliarDialogComponent implements OnInit {
     }
 
     persona.familia = familia;
-    persona.clasificacionRiesgo = 'PRUEBA'
     this.personaService.registrar(this.formPersona.value)
         .subscribe(response => {
           if(!this.data.familia) {

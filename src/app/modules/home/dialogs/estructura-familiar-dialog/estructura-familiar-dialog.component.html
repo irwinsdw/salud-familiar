@@ -78,7 +78,7 @@
               <section class="example-section" >
                 <h4>Clasificación de riesgo</h4>
                 <div class="grid-container" >
-                  <mat-checkbox (change)="onCheckboxChange($event)" [value]="item.nombre" [checked]=item.estado *ngFor="let item of clasifiacionesRiesgosas">{{item.nombre}}</mat-checkbox>
+                  <mat-checkbox (change)="onCheckboxChange($event)" value="{{item.id}}" [checked]=item.estado *ngFor="let item of listaClasificacionRiesgo">{{item.nombre}}</mat-checkbox>
                 </div>
 
               </section>
